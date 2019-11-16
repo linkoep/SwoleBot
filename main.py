@@ -22,10 +22,10 @@ def AddingEvent(request):
 
 				if j != -1:
 					names.append(request_dict[i:j-2])
+				"""
 				else:
 					names.append(request_dict[i:])
-					# statement += names[0];
-
+				"""
 				i = j
 
 			
