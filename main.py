@@ -16,7 +16,6 @@ def addWorkout(msg_id, workout_type, unix_time, list_ids):
         workout.set({
             "type" : workout_type,
             "unix_time" : unix_time,
-            "with" : list_ids
         })
     
 
