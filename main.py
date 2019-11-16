@@ -80,7 +80,7 @@ def AddingEvent(request):
 		message = message[5:]
 		if message.startswith('leaderboard'):
 			sendMessage("doing leaderboard")
-						getLeaderboardTop(5)
+			getLeaderboardTop(5)
 
 	# Non bot-commands
 	else: 
