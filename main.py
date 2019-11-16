@@ -64,7 +64,7 @@ def getLeaderboardTop(n):
 
 	leaderboardMsg = "Top {} all time: ".format(n)
 	for person in top:
-		leaderboardMsg = leaderboardMsg.join("{} => {} ".format(person.id, person.to_dict()))
+		leaderboardMsg = leaderboardMsg.join("{} => {} ".format(person.id, json.dumps(person.to_dict())))
 	return leaderboardMsg
 
 def AddingEvent(request):
