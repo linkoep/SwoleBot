@@ -10,8 +10,13 @@ def AddingEvent(request):
 	if request_dict["sender_type"] != 'bot':
 		if len(request_dict["attachments"]) != 0:
 
+			statement = " "
+
 			names = []
 			i = 0;
+
+			statement += request_dict["text"].find('@', i)
+			"""
 			while (request_dict["text"].find('@', i) != -1):
 				j = request_dict["text"].find('@', i+1)
 
@@ -21,8 +26,9 @@ def AddingEvent(request):
 					names.append(request_dict[i:])
 
 				i = j
+			"""
 
-			statement = " "
+			
 			for temp in names:
 				statement += temp + " ";
 
