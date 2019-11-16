@@ -43,8 +43,3 @@ def AddingEvent(request):
 	if imageFound:
             addWorkout(request_dict["id"], typeOfWorkout, request_dict["created_at"], names)
             sendMessage("Logged a {} workout from {}!".format(typeOfWorkout, request_dict["name"]))
-	"""
-
-
-
-
