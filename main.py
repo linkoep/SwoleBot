@@ -15,7 +15,7 @@ def AddingEvent(request):
 			names = []
 			i = 0;
 
-			statement += request_dict["text"].find('@', i)
+			# statement += request_dict["text"].find('@', i)
 			"""
 			while (request_dict["text"].find('@', i) != -1):
 				j = request_dict["text"].find('@', i+1)
