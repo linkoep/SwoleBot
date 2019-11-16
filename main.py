@@ -26,6 +26,20 @@ def AddingEvent(request):
 		return 'Bot message. Do not reply'
 	sendMessage(json.dumps(request_dict))
 
-	# Respond to workout photos
-	if len(request_dict["attachments"]) != 0:
-		return 'GHGHGHGH'
+	names = [request_dict["sender_id"]]
+
+	imageFound = False
+	for attachment in request_dict["attachments"]:
+		if attachment["type"] == "mentions":
+			names.append(attachment["user_ids"])
+		elif attachment["type"] == "image":
+			imageFound = True
+
+
+
+	if imageFound:
+		sendMessage("Good")
+
+
+
+
