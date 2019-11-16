@@ -7,7 +7,7 @@ def AddingEvent(request):
     
     request_dict = request.get_json()
     
-    if request_dict["id"] != bot_id:
+    if request_dict["sender_type"] != 'bot':
         if len(request_dict["attachments"]) != 0:
             return f'BBB'
         else:
