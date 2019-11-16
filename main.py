@@ -8,11 +8,11 @@ def AddingEvent(request):
     request_dict = request.get_json()
     
     if request_dict["id"] != bot_id:
-        if "attachments" in request_dict:
+        if len(request_dict["attachments"]) != 0:
             return f'BBB'
-        
-        data = json.dumps({"text" : request_dict["text"], "bot_id": bot_id})
-        send = requests.post("https://api.groupme.com/v3/bots/post", data=data)
-        return f'AAA'
+        else:
+            data = json.dumps({"text" : request_dict["text"], "bot_id": bot_id})
+            send = requests.post("https://api.groupme.com/v3/bots/post", data=data)
+            return f'AAA'
     else:
         return f'Hello World!'
