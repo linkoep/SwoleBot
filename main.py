@@ -12,7 +12,7 @@ def AddingEvent(request):
 	request_dict = request.get_json()
 	if request_dict["sender_type"] == 'bot':
 		return 'Bot message. Do not reply'
-	sendMessage(json.dumps(request_dict))
+	# sendMessage(json.dumps(request_dict))
 
 	names = [request_dict["sender_id"]]
 
