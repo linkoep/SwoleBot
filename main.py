@@ -62,9 +62,9 @@ def getLeaderboardTop(n):
 	db = firestore.Client()
 	top = db.collection("users").order_by("num_workouts", direction=firestore.Query.DESCENDING).limit(n).stream()
 
-	leaderboardMsg = "Top {} all time:\n".format(n)
+	leaderboardMsg = "Top {} all time: ".format(n)
 	for person in top:
-		leaderboardMsg.append("{} => {}".format(doc.id, doc.to_dict()))
+		leaderboardMsg.join("{} => {} ".format(person.id, person.to_dict()))
 	return leaderboardMsg
 
 def AddingEvent(request):
