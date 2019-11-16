@@ -28,14 +28,13 @@ def AddingEvent(request):
 	
 	sendMessage(json.dumps(request_dict))
 
-	"""
 	names = [request_dict["sender_id"]]
 
 	imageFound = False
 	typeOfWorkout = " "
 	for attachment in request_dict["attachments"]:
 		if attachment["type"] == "mentions":
-			names.append(attachment["user_ids"])
+			names.extend(set(attachment["user_ids"]))
 		elif attachment["type"] == "image":
 			imageFound = True
 
