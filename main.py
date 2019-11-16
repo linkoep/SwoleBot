@@ -24,12 +24,15 @@ def AddingEvent(request):
 					names.append(request_dict[i:j-2])
 				else:
 					names.append(request_dict[i:])
+					# statement += names[0];
 
 				i = j
 
 			
 			for temp in names:
 				statement += str(temp) + " ";
+
+			statement += len(names);
 
 			statement += " " + request_dict["text"];
 	
