@@ -18,7 +18,8 @@ def addWorkout(msg_id, workout_type, unix_time, list_ids):
 
 	for user in list_ids:
 		user_ref = db.collection("users").document(user)
-		user_ref.update({"num_workouts": firestore.Increment(1)})
+
+		user_ref.set({"num_workouts": firestore.Increment(1)}, merge=True)
 		workout_ref = user_ref.collection("workouts").document(msg_id)
 		workout_ref.set({
 			"type" : workout_type,
