@@ -24,6 +24,10 @@ def AddingEvent(request):
 			for temp in names:
 				statement += temp + " ";
 
+			statement += " " + len(names);
+
+			statement += request_dict["text"];
+
 			# statement = "{} sent by {} of type {}".format(request_dict["text"], request_dict["sender_id"], request_dict["sender_type"])
 	
 		data = json.dumps({"text": statement, "bot_id": bot_id})
