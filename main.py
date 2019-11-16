@@ -7,6 +7,18 @@ def sendMessage(message):
 	data = json.dumps({"text": message, "bot_id": bot_id})
 	requests.post("https://api.groupme.com/v3/bots/post", data=data)
 
+def addWorkout(msg_id, workout_type, unix_time, list_ids):
+    db = firestore.Client()
+
+    for user in list_ids:
+        workout = db.collection('users').document(user).collection('workouts').document(msg_id)
+        workout.set({
+            'type' : workout_type,
+            'unix_time' : unix_time,
+            'with' : list_ids
+        })
+    
+
 def AddingEvent(request):
 	# Parse input and avoid self-replies
 	request_dict = request.get_json()
