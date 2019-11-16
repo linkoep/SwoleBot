@@ -15,26 +15,22 @@ def AddingEvent(request):
 			names = []
 			i = 0;
 
-			# statement += str(request_dict["text"].find("@", i))
-
 			while (request_dict["text"].find('@', i) != -1):
 				j = request_dict["text"].find('@', i+1)
 
 				if j != -1:
-					names.append(request_dict[i:j-2])
-				"""
+					names.append(request_dict["text"][i:j-2])
 				else:
-					names.append(request_dict[i:])
-				"""
+					names.append(request_dict["text"][i:])
 				i = j
 
 			
 			for temp in names:
-				statement += str(temp) + " ";
+				statement += str(temp) + " "
 
-			statement += len(names);
+			statement += len(names)
 
-			statement += " " + request_dict["text"];
+			statement += " " + request_dict["text"]
 	
 			data = json.dumps({"text": statement, "bot_id": bot_id})
 			requests.post("https://api.groupme.com/v3/bots/post", data=data)
