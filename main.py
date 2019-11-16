@@ -61,12 +61,10 @@ def WorkOutType(message):
 def getLeaderboardTop(n):
 	db = firestore.Client()
 	top = db.collection("users").order_by("num_workouts", direction=firestore.Query.DESCENDING).limit(n).stream()
-	for person in top:
-		sendMessage(json.dumps(person.to_dict()))
 
 	leaderboardMsg = "Top {} all time: ".format(n)
 	for person in top:
-		leaderboardMsg.join("{} => {} ".format(person.id, person.to_dict()))
+		leaderboardMsg = leaderboardMsg.join("{} => {} ".format(person.id, person.to_dict()))
 	return leaderboardMsg
 
 def AddingEvent(request):
