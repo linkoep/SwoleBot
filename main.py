@@ -21,6 +21,8 @@ def AddingEvent(request):
 				else:
 					names.append(request_dict[i:len(request_dict)])
 
+				i = j
+
 			for temp in names:
 				statement += temp + " ";
 
