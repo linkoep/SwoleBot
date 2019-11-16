@@ -11,6 +11,7 @@ def AddingEvent(request):
 		statement = "GHGHGH"
 		if len(request_dict["attachments"]) != 0:
 
+			"""
 			names = []
 			i = 0;
 			while (request_dict["text"].find('@', i)):
@@ -27,7 +28,8 @@ def AddingEvent(request):
 				statement += temp + " ";
 
 			statement += " " + len(names);
-
+			"""
+			
 			statement += request_dict["text"];
 
 			# statement = "{} sent by {} of type {}".format(request_dict["text"], request_dict["sender_id"], request_dict["sender_type"])
