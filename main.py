@@ -13,16 +13,16 @@ def sendMessage(message):
 	requests.post("https://api.groupme.com/v3/bots/post", data=data)
 
 def addWorkout(msg_id, workout_type, unix_time, list_ids):
-    db = firestore.Client()
+	db = firestore.Client()
 
-    for user in list_ids:
-        user_ref = db.collection("users").document(user)
-        workout_ref = user_ref.collection("workouts").document(msg_id)
-        workout_ref.set({
-            "type" : workout_type,
-            "unix_time" : unix_time,
-        })
-    
+	for user in list_ids:
+		user_ref = db.collection("users").document(user)
+		workout_ref = user_ref.collection("workouts").document(msg_id)
+		workout_ref.set({
+			"type" : workout_type,
+			"unix_time" : unix_time,
+		})
+	
 def WorkOutType(message):
 	for word in core:
 		if message.find(word) != -1:
@@ -60,5 +60,5 @@ def AddingEvent(request):
 
 	if imageFound:
 		typeOfWorkout = WorkOutType(request_dict["text"].lower())
-        addWorkout(request_dict["id"], typeOfWorkout, request_dict["created_at"], names)
-        sendMessage("Logged a {} workout from {}!".format(typeOfWorkout, request_dict["name"]))
+		addWorkout(request_dict["id"], typeOfWorkout, request_dict["created_at"], names)
+		sendMessage("Logged a {} workout from {}!".format(typeOfWorkout, request_dict["name"]))
