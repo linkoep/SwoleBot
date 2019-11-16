@@ -12,8 +12,9 @@ def addWorkout(msg_id, workout_type, unix_time, list_ids):
     db = firestore.Client()
 
     for user in list_ids:
-        workout = db.collection("users").document(user).collection("workouts").document(msg_id)
-        workout.set({
+        user_ref = db.collection("users").document(user)
+        workout_ref = user_ref.collection("workouts").document(msg_id)
+        workout_ref.set({
             "type" : workout_type,
             "unix_time" : unix_time,
         })
