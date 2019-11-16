@@ -81,23 +81,21 @@ def AddingEvent(request):
         if message.startswith('leaderboard'):
             sendMessage("doing leaderboard")
             sendMessage(getLeaderboardTop(5))
-        
 
-
+    # Non bot-commands
     else: 
-        # Non bot-commands
         names = [request_dict["sender_id"]]
-
-	imageFound = False
-	for attachment in request_dict["attachments"]:
+    
+        imageFound = False
+        for attachment in request_dict["attachments"]:
             if attachment["type"] == "mentions":
                 names.extend(set(attachment["user_ids"]))
             elif attachment["type"] == "image":
                 imageFound = True
-
+    
         if imageFound:
             typeOfWorkout = WorkOutType(request_dict["text"].lower())
-
+    
             for temp in typeOfWorkout:
-                addWorkout(request_dict["id"], temp, request_dict["created_at"], names)
-                sendMessage("Logged a {} workout from {}!".format(temp, request_dict["name"]))
+            	addWorkout(request_dict["id"], temp, request_dict["created_at"], names)
+            	sendMessage("Logged a {} workout from {}!".format(temp, request_dict["name"]))
