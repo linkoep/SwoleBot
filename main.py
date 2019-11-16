@@ -10,7 +10,7 @@ def AddingEvent(request):
 	if request_dict["sender_type"] != 'bot':
 		if len(request_dict["attachments"]) != 0:
 
-			statement = " "
+			statement = "AAAA"
 
 			names = []
 			i = 0;
@@ -22,15 +22,16 @@ def AddingEvent(request):
 					names.append(request_dict["text"][i:j-2])
 				else:
 					names.append(request_dict["text"][i:])
-				i = j
+				i = j+1
 
-			
+			"""
 			for temp in names:
-				statement += str(temp) + " "
+				statement += temp + " "
 
 			statement += len(names)
 
 			statement += " " + request_dict["text"]
+			"""
 	
 			data = json.dumps({"text": statement, "bot_id": bot_id})
 			requests.post("https://api.groupme.com/v3/bots/post", data=data)
