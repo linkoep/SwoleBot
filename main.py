@@ -62,10 +62,9 @@ def getLeaderboardTop(n):
 	db = firestore.Client()
 	top = db.collection("users").order_by("num_workouts", direction=firestore.Query.DESCENDING).limit(n).stream()
 
-	leaderboardMsg = "Top {} all time: ".format(n)
+	sendMessage( "Top {} all time: ".format(n))
 	for person in top:
-		leaderboardMsg = leaderboardMsg.join("{} => {} ".format(person.id, json.dumps(person.to_dict())))
-	return leaderboardMsg
+		sendMessage("{} => {} ".format(person.id, json.dumps(person.to_dict())))
 
 def AddingEvent(request):
 	# Parse input and avoid self-replies
@@ -81,7 +80,7 @@ def AddingEvent(request):
 		message = message[5:]
 		if message.startswith('leaderboard'):
 			sendMessage("doing leaderboard")
-			sendMessage(getLeaderboardTop(5))
+                        getLeaderboardTop(5)
 
 	# Non bot-commands
 	else: 
