@@ -7,7 +7,6 @@ lower = ["lower", "leg", "legs"]
 cardio =["cardio", "run", "ran"]
 skills = ["skills", "threw"]
 
-
 def sendMessage(message):
 	bot_id = os.getenv("BOT_ID")
 	data = json.dumps({"text": message, "bot_id": bot_id})
@@ -59,10 +58,7 @@ def AddingEvent(request):
 		elif attachment["type"] == "image":
 			imageFound = True
 
-
-
 	if imageFound:
-
 		typeOfWorkout = WorkOutType(request_dict["text"].lower())
         addWorkout(request_dict["id"], typeOfWorkout, request_dict["created_at"], names)
         sendMessage("Logged a {} workout from {}!".format(typeOfWorkout, request_dict["name"]))
