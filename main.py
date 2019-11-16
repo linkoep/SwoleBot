@@ -11,7 +11,7 @@ def AddingEvent(request):
         if len(request_dict["attachments"]) != 0:
             return f'BBB'
         else:
-            data = json.dumps({"text" : request_dict["text"], "bot_id": bot_id})
+            data = json.dumps({"text" : "{} sent by {} of type {}".format(request_dict["text"], request_dict["sender_id"], request_dict["sender_type"]), "bot_id": bot_id})
             send = requests.post("https://api.groupme.com/v3/bots/post", data=data)
             return f'AAA'
     else:
