@@ -1,7 +1,12 @@
 import requests, json, os
 from google.cloud import firestore
 
-# returns unused except for testing
+core = ["core", "abs"]
+upper = ["upper"]
+lower = ["lower", "leg", "legs"]
+cardio =["cardio", "run", "ran"]
+skills = ["skills", "threw"]
+
 
 def sendMessage(message):
 	bot_id = os.getenv("BOT_ID")
@@ -19,6 +24,23 @@ def addWorkout(msg_id, workout_type, unix_time, list_ids):
             "unix_time" : unix_time,
         })
     
+def WorkOutType(message):
+	for word in core:
+		if message.find(word) != -1:
+			return "core"
+	for word in upper:
+		if message.find(word) != -1:
+			return "upper"
+	for word in lower:
+		if message.find(word) != -1:
+			return "lower"
+	for word in cardio:
+		if message.find(word) != -1:
+			return "cardio"
+	for word in skills:
+		if message.find(word) != -1:
+			return "skills"
+	return "unkown"
 
 def AddingEvent(request):
 	# Parse input and avoid self-replies
@@ -31,7 +53,6 @@ def AddingEvent(request):
 	names = [request_dict["sender_id"]]
 
 	imageFound = False
-	typeOfWorkout = " "
 	for attachment in request_dict["attachments"]:
 		if attachment["type"] == "mentions":
 			names.extend(set(attachment["user_ids"]))
@@ -41,5 +62,7 @@ def AddingEvent(request):
 
 
 	if imageFound:
-            addWorkout(request_dict["id"], typeOfWorkout, request_dict["created_at"], names)
-            sendMessage("Logged a {} workout from {}!".format(typeOfWorkout, request_dict["name"]))
+
+		typeOfWorkout = WorkOutType(request_dict["text"].lower())
+        addWorkout(request_dict["id"], typeOfWorkout, request_dict["created_at"], names)
+        sendMessage("Logged a {} workout from {}!".format(typeOfWorkout, request_dict["name"]))
