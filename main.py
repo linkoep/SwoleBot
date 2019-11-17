@@ -180,7 +180,7 @@ def setKitHours(message):
 		"end": {
 			"date": end.isoformat(),
 			"timeZone": "America/New_York",
-		},
+		}
 	}
 	"""
 
