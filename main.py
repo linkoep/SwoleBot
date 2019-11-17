@@ -185,8 +185,6 @@ def setKitHours(message):
 	}
 	"""
 
-	sendMessage("message")
-
 	created_event = service.events().quickAdd(
     	calendarId='jqurd415p17322i9p9sqmq5g78@group.calendar.google.com',
     	text=message).execute()
@@ -236,7 +234,7 @@ def AddingEvent(request):
 			sendMessage("Finding Kit's Hours. Please Wait a Second...")
 			sendMessage(getKitHours())
 		elif message.startswith("set kit"):
-			setKitHours(message[4:])
+			setKitHours(message[4:].title())
 		elif message.startswith('morning'):
 			sendMessage("Saying Good Morning. Please Wait a Second...")
 			MorningMessage()
