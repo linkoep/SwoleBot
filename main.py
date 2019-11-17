@@ -80,7 +80,11 @@ def getLeaderboardTop(n):
 
 def FindEvents():
 
-	service = build('calendar', 'v3', credentials=pickle.load(token))
+	creds = None
+	if os.path.exists('token.pickle'):
+		with open('token.pickle', 'rb') as token:
+			creds = pickle.load(token)
+	service = build('calendar', 'v3', credentials=creds)
 
 	# Call the Calendar API
 	now = datetime.datetime.utcnow().isoformat() + 'Z' # 'Z' indicates UTC time
@@ -101,7 +105,11 @@ def FindEvents():
 		sendMessage(statement)
 
 def getKitHours():
-	service = build('calendar', 'v3', credentials=pickle.load(token))
+	creds = None
+	if os.path.exists('token.pickle'):
+		with open('token.pickle', 'rb') as token:
+			creds = pickle.load(token)
+	service = build('calendar', 'v3', credentials=creds)
 
 	# Call the Calendar API
 	now = datetime.datetime.utcnow().isoformat() + 'Z' # 'Z' indicates UTC time
