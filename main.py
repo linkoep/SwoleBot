@@ -231,7 +231,7 @@ def AddingEvent(request):
 			sendMessage("Finding Kit's Hours. Please Wait a Second...")
 			sendMessage(getKitHours())
 		elif message.startswith("set kit"):
-			getKitHours(message)
+			setKitHours(message)
 		elif message.startswith('morning'):
 			sendMessage("Saying Good Morning. Please Wait a Second...")
 			MorningMessage()
