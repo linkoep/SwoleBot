@@ -97,7 +97,7 @@ def FindEvents():
 		statement = ""
 		for event in events:
 			start = event['start'].get('dateTime', event['start'].get('date'))
-			statement += event["summary"] " @ " + start + "\n"
+			statement += event["summary"] + " @ " + str(start) + "\n"
 		sendMessage(statement)
 
 def getKitHours():
@@ -120,7 +120,7 @@ def getKitHours():
 			start = event['start'].get('dateTime', event['start'].get('date'))
 			# temp = start, event["summary"]
 			# print(start, event['summary'])
-			statement += start + "\n"
+			statement += str(start) + "\n"
 		sendMessage(statement)
 
 
@@ -135,7 +135,7 @@ def AddingEvent(request):
 	
 	if debug.lower() == "true":
 		sendMessage(json.dumps(request_dict))
-	message = request_dict["text"]
+	message = request_dict["text"].lower()
 	
 	# Bot-commands
 	if message.startswith('!bot '):
@@ -146,6 +146,9 @@ def AddingEvent(request):
 		elif message.startswith('events'):
 			sendMessage("Finding Events. Please Wait a Second...")
 			FindEvents()
+		elif message.startswith('kit'):
+			sendMessage("Finding Kit's Hours. Please Wait a Second...")
+			getKitHours()
 
 	# Non bot-commands
 	else: 
