@@ -9,8 +9,6 @@ from google.cloud import firestore
 from apiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 
-from datetime import datetime
-
 core = ["core", "abs", "plank"]
 upper = ["upper", "chest", "back", "shoulder", "tricep", "tri", "bicep", "push up"]
 lower = ["lower", "leg", "squat"]
@@ -170,14 +168,8 @@ def setKitHours(message):
 	endHour = message[k-2:k]
 	endMin = message[k+1:k+3]
 
-
-
-	startTimes = []
-	endTimes = []
-
-
-	start = datetime(year, month, day, startHour, startMin, 0, 0)
-	end = datetime(year, month, day, endHour, endMin, 0, 0)
+	start = datetime.datetime(year, month, day, startHour, startMin, 0, 0)
+	end = datetime.datetime(year, month, day, endHour, endMin, 0, 0)
 
 
 	event = {
