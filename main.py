@@ -243,8 +243,7 @@ def AddingEvent(request):
 			statement += "!bot leaderboard: Gets the top 5 most active members on Trudge\n"
 			statement += "!bot events: See upcoming Trudge events\n"
 			statement += "!bot Kit's Hours: See Kit's hours for that week\n"
-
-			message.startswith(statement):
+			sendMessage(statement)
 
 	# Non bot-commands
 	else: 
