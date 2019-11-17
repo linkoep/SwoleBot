@@ -182,6 +182,11 @@ def setKitHours(message):
 			"timeZone": "America/New_York",
 		}
 	}
+
+	created_event = service.events().quickAdd(
+    	calendarId='jqurd415p17322i9p9sqmq5g78@group.calendar.google.com',
+    	text='Appointment at Somewhere on November 18 10am-10:25am').execute()
+
 	"""
 
 	event = {
@@ -198,6 +203,8 @@ def setKitHours(message):
 		},
 	}
 	"""
+
+	sendMessage("GGG")
 
 	event = service.events().insert(calendarId="jqurd415p17322i9p9sqmq5g78@group.calendar.google.com", body=event).execute()
 
