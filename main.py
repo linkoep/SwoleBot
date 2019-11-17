@@ -72,7 +72,7 @@ def AddingEvent(request):
 	if request_dict["sender_type"] == "bot":
 		return "Bot message. Do not reply"
 	
-	# sendMessage(json.dumps(request_dict))
+	sendMessage(json.dumps(request_dict))
 	message = request_dict["text"]
 	
 	# Bot-commands
