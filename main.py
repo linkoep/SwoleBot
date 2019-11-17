@@ -146,7 +146,7 @@ def getKitHours():
 			# print(start, event["summary"])
 			# statement += "\n" + start
 
-			statement += "\nOn {}/{}/{} @ {}:{}".format(start[:4], start[6:8], start[10:12], start[14:16], start[18,20])
+			statement += "\nOn {}/{}/{} @ {}:{}".format(start[0:4], start[6:8], start[10:12], start[14:16], start[18:20])
 
 	return statement
 
