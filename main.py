@@ -2,13 +2,12 @@ from __future__ import print_function
 import datetime
 import pickle
 import os.path
-from google.auth import _helpers
-from google.auth import credentials
-from google.auth import exceptions
-from google.oauth2 import _client
 
 import requests, json, os
 from google.cloud import firestore
+
+from apiclient.discovery import build
+from google_auth_oauthlib.flow import InstalledAppFlow
 
 
 core = ["core", "abs", "plank"]
@@ -77,6 +76,19 @@ def getLeaderboardTop(n):
 		sendMessage("{} => {} ".format(person.id, json.dumps(person.to_dict())))
 
 def FindEvents():
+	scopes = ['https://www.googleapis.com/auth/calendar']
+
+	bot_id = os.getenv("CREDENTIALS")
+	data = json.dumps(bot_id)
+
+	flow = InstalledAppFlow.from_client_secrets_file("credentials.json", scopes=scopes) 
+	credentials = flow.run_console()
+
+	service = build(“calendar”, “v3”, credentials=credentials)
+
+
+"""
+def FindEvents():
 
 	SCOPES = ['https://www.googleapis.com/auth/calendar.readonly']
 
@@ -116,6 +128,7 @@ def FindEvents():
 		# statement += event + "\n"
 
 	# sendMessage(statement)
+"""
 
 def AddingEvent(request):
 	debug = os.getenv("DEBUG", "false")
