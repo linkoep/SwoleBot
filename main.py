@@ -107,9 +107,9 @@ def FindEvents():
 	if not events:
 		sendMessage("No upcoming events found.")
 	for event in events:
-		start = event['start'].get('dateTime', event['start'].get('date'))
+		# start = event['start'].get('dateTime', event['start'].get('date'))
 		# temp = start, event["summary"]
-		sendMessage(start)
+		sendMessage(event["summary"])
 		# print(start, event['summary'])
 
 	# for event in events:
