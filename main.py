@@ -142,49 +142,6 @@ def setKitHours(message):
 
 	# Kit's Hours on November 18 at 09:30-14:30
 
-	"""
-	i = message.find("/")
-	if i == -1:
-		return "Invalid Input"
-
-	month = int(message[i-2:i])
-	day = int(message[i+1:i+3])
-	year = int(message[i+4:i+8])
-
-	j = message.find(":", i)
-	if j == -1:
-		return "Invalid Input"
-
-	startHour = int(message[j-2:j])
-	startMin = int(message[j+1:j+3])
-
-	k = message.find(":", j+1)
-	if k == -1:
-		return "Invalid Input"
-
-	endHour = int(message[k-2:k])
-	endMin = int(message[k+1:k+3])
-
-	start = datetime(year, month, day, startHour, startMin, 0, 0)
-	sendMessage(start.isoformat())
-	end = datetime(year, month, day, endHour, endMin, 0, 0)
-	sendMessage(end.isoformat())
-	
-	event = {
-		"summary": "Kit's Hours",
-		"location": "Armory",
-		"description": "Go be healed",
-		"start": {
-			"date": start.isoformat(),
-			"timeZone": "America/New_York",
-		},
-		"end": {
-			"date": end.isoformat(),
-			"timeZone": "America/New_York",
-		}
-	}
-	"""
-
 	created_event = service.events().quickAdd(
     	calendarId='jqurd415p17322i9p9sqmq5g78@group.calendar.google.com',
     	text=message).execute()
