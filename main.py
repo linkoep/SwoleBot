@@ -239,7 +239,8 @@ def AddingEvent(request):
 			# sendMessage("Saying Good Morning. Please Wait a Second...")
 			MorningMessage()
 		elif message.startswith('help'):
-			statement = "Share a picture of you while working at and @ all others involved\n"
+			statement = "Share a picture of you while working out and @ all others involved\n"
+			statement += "Commands:\n"
 			statement += "!bot leaderboard: Gets the top 5 most active members on Trudge\n"
 			statement += "!bot events: See upcoming Trudge events\n"
 			statement += "!bot Kit's Hours: See Kit's hours for that week\n"
