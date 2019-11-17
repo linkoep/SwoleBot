@@ -74,30 +74,35 @@ def getLeaderboardTop(n):
 		sendMessage("{} => {} ".format(person.id, json.dumps(person.to_dict())))
 
 def FindEvents():
-	db = firestore.Client()
-
 	# statement = "Events: "
 
 	creds = None
-
+	sendMessage("Good: 1")
 	if os.path.exists('token.pickle'):
 		with open('token.pickle', 'rb') as token:
 			creds = pickle.load(token)
-
+	sendMessage("Good: 2")
 	if creds == None:
-
 		sendMessage("BADDD")
 		return "BADDD"
+	sendMessage("Good: 3")
 
 	service = build('calendar', 'v3', credentials=creds)
 
+	sendMessage("Good: 4")
+
 	# Call the Calendar API
 	now = datetime.datetime.utcnow().isoformat() + 'Z' # 'Z' indicates UTC time
-	print('Getting the upcoming 10 events')
+	sendMessage("Getting the upcoming 10 events")
 	events_result = service.events().list(calendarId='Trudge', timeMin=now,
 										maxResults=10, singleEvents=True,
 										orderBy='startTime').execute()
+
+	sendMessage("Good: 5")
+
 	events = events_result.get('items', [])
+
+	sendMessage("Good: 6")
 
 	if not events:
 		sendMessage("No upcoming events found.")
