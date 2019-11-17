@@ -147,7 +147,7 @@ def setKitHours(message):
 
 	# set Kit's Hours 11/18/2019 09:30-14:30
 
-
+	"""
 	i = message.find("/")
 	if i == -1:
 		return "Invalid Input"
@@ -172,18 +172,18 @@ def setKitHours(message):
 
 	start = datetime(year, month, day, startHour, startMin, 0, 0)
 	end = datetime(year, month, day, endHour, endMin, 0, 0)
-
+	"""
 
 	event = {
 		"summary": "Kit's Hours",
 		"location": "Armory",
 		"description": "Go be healed",
 		"start": {
-			"dateTime": "2015-05-28T09:00:00-07:00",
+			"dateTime": "2015-05-28T09:00-07:00",
 			"timeZone": "America/New_York",
 		},
 		"end": {
-			"dateTime": "2015-05-28T17:00:00-07:00",
+			"dateTime": "2015-05-28T17:00-07:00",
 			"timeZone": "America/New_York",
 		},
 	}
