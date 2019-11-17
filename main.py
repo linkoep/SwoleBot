@@ -76,25 +76,16 @@ def getLeaderboardTop(n):
 		sendMessage("{} => {} ".format(person.id, json.dumps(person.to_dict())))
 
 def FindEvents():
-	# statement = "Events: "
 
 	SCOPES = ['https://www.googleapis.com/auth/calendar.readonly']
 
-	creds = None
-	if os.path.exists('token.pickle'):
-		with open('token.pickle', 'rb') as token:
-			creds = pickle.load(token)
-	# If there are no (valid) credentials available, let the user log in.
-	if not creds or not creds.valid:
-		if creds and creds.expired and creds.refresh_token:
-			creds.refresh(Request())
-		else:
-			flow = InstalledAppFlow.from_client_secrets_file(
-				'credentials.json', SCOPES)
-			creds = flow.run_local_server(port=0)
-		# Save the credentials for the next run
-		with open('token.pickle', 'wb') as token:
-			pickle.dump(creds, token)
+	CLIENT_ID = os.getenv("CLIENT_ID")
+	PROJECT_ID = os.getenv("PROJECT_ID")
+	CLIENT_SECRET = os.getenv("CLIENT_SECRET")
+	REFRESH_TOKEN = os.getenv("REFRESH_TOKEN")
+
+
+	cred = google.oauth2.credentials.Credentials(refresh_token=REFRESH_TOKEN, token_uri=https://oauth2.googleapis.com/token, client_id=CLIENT_ID, client_secret=CLIENT_SECRET, scopes=SCOPES)
 
 	service = build('calendar', 'v3', credentials=creds)
 
