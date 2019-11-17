@@ -81,55 +81,79 @@ def getLeaderboardTop(n):
 def FindEvents():
 
 	creds = None
-	if os.path.exists('token.pickle'):
-		with open('token.pickle', 'rb') as token:
+	if os.path.exists("token.pickle"):
+		with open("token.pickle", "rb") as token:
 			creds = pickle.load(token)
-	service = build('calendar', 'v3', credentials=creds)
+	service = build("calendar", "v3", credentials=creds)
 
 	# Call the Calendar API
-	now = datetime.datetime.utcnow().isoformat() + 'Z' # 'Z' indicates UTC time
+	now = datetime.datetime.utcnow().isoformat() + "Z" # "Z" indicates UTC time
 	events_result = service.events().list(calendarId="primary", timeMin=now,
 										maxResults=10, singleEvents=True,
 										orderBy="startTime").execute()
 
-	events = events_result.get('items', [])
+	events = events_result.get("items", [])
 
 	if not events:
 		statement = "No upcoming events found."
 	else:
 		statement = "Upcoming events:"
 		for event in events:
-			start = event['start'].get('dateTime', event['start'].get('date'))
+			start = event["start"].get("dateTime", event["start"].get("date"))
 			statement += "\n" + event["summary"] + " @ " + str(start)
 	return statement
 
 def getKitHours():
 	creds = None
-	if os.path.exists('token.pickle'):
-		with open('token.pickle', 'rb') as token:
+	if os.path.exists("token.pickle"):
+		with open("token.pickle", "rb") as token:
 			creds = pickle.load(token)
-	service = build('calendar', 'v3', credentials=creds)
+	service = build("calendar", "v3", credentials=creds)
 
 	# Call the Calendar API
-	now = datetime.datetime.utcnow().isoformat() + 'Z' # 'Z' indicates UTC time
-	events_result = service.events().list(calendarId=jqurd415p17322i9p9sqmq5g78@group.calendar.google.com, timeMin=now,
+	now = datetime.datetime.utcnow().isoformat() + "Z" # "Z" indicates UTC time
+	events_result = service.events().list(calendarId="jqurd415p17322i9p9sqmq5g78@group.calendar.google.com", timeMin=now,
 										maxResults=10, singleEvents=True,
-										orderBy='startTime').execute()
+										orderBy="startTime").execute()
 
-	events = events_result.get('items', [])
+	events = events_result.get("items", [])
 
 	if not events:
 		statement = "No hours uploaded"
 	else:
 		statement = "Kit's Hours this week:"
 		for event in events:
-			start = event['start'].get('dateTime', event['start'].get('date'))
+			start = event["start"].get("dateTime", event["start"].get("date"))
 			# temp = start, event["summary"]
-			# print(start, event['summary'])
+			# print(start, event["summary"])
 			statement += "\n" + str(start)
 
 	return statement
 
+def setKitHours(message):
+
+	event = {
+		"summary": "Kit's Hours",
+		"location": "Armory",
+		"description": "Go be healed",
+		"start": {
+			"dateTime": "2015-05-28T09:00:00-07:00",
+			"timeZone": "America/New_York",
+		},
+		"end": {
+			"dateTime": "2015-05-28T17:00:00-07:00",
+			"timeZone": "America/New_York",
+		},
+	}
+
+	creds = None
+	if os.path.exists("token.pickle"):
+		with open("token.pickle", "rb") as token:
+			creds = pickle.load(token)
+	service = build("calendar", "v3", credentials=creds)
+	event = service.events().insert(calendarId="jqurd415p17322i9p9sqmq5g78@group.calendar.google.com", body=event).execute()
+
+	sendMessage("Hours have been added")
 
 
 
@@ -146,17 +170,19 @@ def AddingEvent(request):
 	message = request_dict["text"].lower()
 	
 	# Bot-commands
-	if message.startswith('!bot '):
+	if message.startswith("!bot "):
 		message = message[5:]
-		if message.startswith('leaderboard'):
+		if message.startswith("leaderboard"):
 			sendMessage("Calculating Leaderboard. Please Wait a Second...")
 			getLeaderboardTop(5)
-		elif message.startswith('events'):
+		elif message.startswith("events"):
 			sendMessage("Finding Events. Please Wait a Second...")
 			sendMessage(FindEvents())
-		elif message.startswith('kit'):
+		elif message.startswith("get kit"):
 			sendMessage("Finding Kit's Hours. Please Wait a Second...")
 			sendMessage(getKitHours())
+		elif message.startswith("set kit"):
+			getKitHours()
 
 	# Non bot-commands
 	else: 
