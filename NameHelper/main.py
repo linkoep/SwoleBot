@@ -9,7 +9,11 @@ def populateNames(request):
 		
 	if debug.lower() == "true":
 		print("Fetching last 50 messages")
-	messages_response = requests.get("https://api.groupme.com/v3/groups/"+group_id+"/messages?token="+access_token+"&limit=50")
-	messages = messages_response.json()
-	print(messages)
-	return messages
+	response_object = requests.get("https://api.groupme.com/v3/groups/"+group_id+"/messages?token="+access_token+"&limit=50")
+	response = response_object.json()
+	users = set()
+	for message in response["response"]["messages"]:
+		users.add((message["sender_id"], message["name"]))
+	if debug.lower() == "true":
+		print(users)
+	return "Done!"
