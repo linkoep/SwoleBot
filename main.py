@@ -86,7 +86,7 @@ def FindEvents():
 	REFRESH_TOKEN = os.getenv("REFRESH_TOKEN")
 
 
-	creds = google.oauth2.credentials.Credentials(refresh_token=REFRESH_TOKEN, token_uri="https://oauth2.googleapis.com/token", client_id=CLIENT_ID, client_secret=CLIENT_SECRET, scopes=SCOPES)
+	creds = Credentials(None, refresh_token=REFRESH_TOKEN, token_uri="https://oauth2.googleapis.com/token", client_id=CLIENT_ID, client_secret=CLIENT_SECRET, scopes=SCOPES)
 
 	service = build('calendar', 'v3', credentials=creds)
 
