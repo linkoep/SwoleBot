@@ -9,6 +9,8 @@ from google.cloud import firestore
 from apiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 
+from datetime import datetime
+
 core = ["core", "abs", "plank"]
 upper = ["upper", "chest", "back", "shoulder", "tricep", "tri", "bicep", "push up"]
 lower = ["lower", "leg", "squat"]
@@ -92,7 +94,7 @@ def FindEvents(n):
 	service = build("calendar", "v3", credentials=creds)
 
 	# Call the Calendar API
-	now = datetime.datetime.utcnow().isoformat() + "Z" # "Z" indicates UTC time
+	now = datetime.utcnow().isoformat() + "Z" # "Z" indicates UTC time
 	events_result = service.events().list(calendarId="primary", timeMin=now,
 										maxResults=n, singleEvents=True,
 										orderBy="startTime").execute()
@@ -116,7 +118,7 @@ def getKitHours():
 	service = build("calendar", "v3", credentials=creds)
 
 	# Call the Calendar API
-	now = datetime.datetime.utcnow().isoformat() + "Z" # "Z" indicates UTC time
+	now = datetime.utcnow().isoformat() + "Z" # "Z" indicates UTC time
 	events_result = service.events().list(calendarId="jqurd415p17322i9p9sqmq5g78@group.calendar.google.com", timeMin=now,
 										maxResults=10, singleEvents=True,
 										orderBy="startTime").execute()
@@ -168,8 +170,8 @@ def setKitHours(message):
 	endHour = message[k-2:k]
 	endMin = message[k+1:k+3]
 
-	start = datetime.datetime(year, month, day, startHour, startMin, 0, 0)
-	end = datetime.datetime(year, month, day, endHour, endMin, 0, 0)
+	start = datetime(year, month, day, startHour, startMin, 0, 0)
+	end = datetime(year, month, day, endHour, endMin, 0, 0)
 
 
 	event = {
