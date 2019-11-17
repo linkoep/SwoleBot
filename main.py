@@ -1,5 +1,4 @@
 from __future__ import print_function
-import datetime
 import pickle
 import os.path
 
@@ -9,7 +8,7 @@ from google.cloud import firestore
 from apiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 
-from datetime import datetime
+from datetime import datetime, timedelta
 
 core = ["core", "abs", "plank"]
 upper = ["upper", "chest", "back", "shoulder", "tricep", "tri", "bicep", "push up"]
