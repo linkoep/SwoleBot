@@ -86,33 +86,37 @@ def FindEvents():
 	sendMessage(statement)
 
 
-def main():
+def AAAA():
 	"""Shows basic usage of the Google Calendar API.
 	Prints the start and name of the next 10 events on the user's calendar.
 	"""
 	creds = None
-	# The file token.pickle stores the user's access and refresh tokens, and is
-	# created automatically when the authorization flow completes for the first
-	# time.
+
 	if os.path.exists('token.pickle'):
 		with open('token.pickle', 'rb') as token:
 			creds = pickle.load(token)
+
+	if creds == None:
+
+		sendMessage("BADDD")
+		return "BADDD"
 
 	service = build('calendar', 'v3', credentials=creds)
 
 	# Call the Calendar API
 	now = datetime.datetime.utcnow().isoformat() + 'Z' # 'Z' indicates UTC time
 	print('Getting the upcoming 10 events')
-	events_result = service.events().list(calendarId='primary', timeMin=now,
+	events_result = service.events().list(calendarId='Trudge', timeMin=now,
 										maxResults=10, singleEvents=True,
 										orderBy='startTime').execute()
 	events = events_result.get('items', [])
 
 	if not events:
-		print('No upcoming events found.')
+		sendMessage("No upcoming events found.")
 	for event in events:
 		start = event['start'].get('dateTime', event['start'].get('date'))
-		print(start, event['summary'])
+		sendMessage(start, event["summary"])
+		# print(start, event['summary'])
 
 
 def AddingEvent(request):
