@@ -2,9 +2,10 @@ from __future__ import print_function
 import datetime
 import pickle
 import os.path
-from googleapiclient.discovery import build
-from google_auth_oauthlib.flow import InstalledAppFlow
-from google.auth.transport.requests import Request
+from google.auth import _helpers
+from google.auth import credentials
+from google.auth import exceptions
+from google.oauth2 import _client
 
 import requests, json, os
 from google.cloud import firestore
@@ -85,7 +86,7 @@ def FindEvents():
 	REFRESH_TOKEN = os.getenv("REFRESH_TOKEN")
 
 
-	cred = google.oauth2.credentials.Credentials(refresh_token=REFRESH_TOKEN, token_uri="https://oauth2.googleapis.com/token", client_id=CLIENT_ID, client_secret=CLIENT_SECRET, scopes=SCOPES)
+	creds = google.oauth2.credentials.Credentials(refresh_token=REFRESH_TOKEN, token_uri="https://oauth2.googleapis.com/token", client_id=CLIENT_ID, client_secret=CLIENT_SECRET, scopes=SCOPES)
 
 	service = build('calendar', 'v3', credentials=creds)
 
