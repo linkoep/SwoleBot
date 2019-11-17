@@ -124,9 +124,8 @@ def getKitHours():
 
 	sendMessage(temp.isoformat())
 
-	events_result = service.events().list(calendarId="jqurd415p17322i9p9sqmq5g78@group.calendar.google.com", timeMin=temp,
-										maxResults=10, singleEvents=True,
-										orderBy="startTime").execute()
+	events_result = service.events().list(calendarId="jqurd415p17322i9p9sqmq5g78@group.calendar.google.com",
+		maxResults=10, orderBy="startTime").execute()
 
 	events = events_result.get("items", [])
 
