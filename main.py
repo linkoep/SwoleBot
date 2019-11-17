@@ -75,29 +75,21 @@ def getLeaderboardTop(n):
 	for person in top:
 		sendMessage("{} => {} ".format(person.id, json.dumps(person.to_dict())))
 
-def FindEvents():
-	scopes = ['https://www.googleapis.com/auth/calendar']
 
-	flow = InstalledAppFlow.from_client_secrets_file("credentials.json", scopes=scopes) 
-	credentials = flow.run_console()
-
-	service = build("calendar", "v3", credentials=credentials)
-
-
-"""
 def FindEvents():
 
-	SCOPES = ['https://www.googleapis.com/auth/calendar.readonly']
+	"""Shows basic usage of the Google Calendar API.
+    Prints the start and name of the next 10 events on the user's calendar.
+    """
+    creds = None
+    # The file token.pickle stores the user's access and refresh tokens, and is
+    # created automatically when the authorization flow completes for the first
+    # time.
+    if os.path.exists('token.pickle'):
+        with open('token.pickle', 'rb') as token:
+            creds = pickle.load(token)
 
-	CLIENT_ID = os.getenv("CLIENT_ID")
-	PROJECT_ID = os.getenv("PROJECT_ID")
-	CLIENT_SECRET = os.getenv("CLIENT_SECRET")
-	REFRESH_TOKEN = os.getenv("REFRESH_TOKEN")
-
-
-	creds = Credentials(None, refresh_token=REFRESH_TOKEN, token_uri="https://oauth2.googleapis.com/token", client_id=CLIENT_ID, client_secret=CLIENT_SECRET, scopes=SCOPES)
-
-	service = build('calendar', 'v3', credentials=creds)
+    service = build('calendar', 'v3', credentials=creds)
 
 	sendMessage("Good: 4")
 
@@ -125,7 +117,6 @@ def FindEvents():
 		# statement += event + "\n"
 
 	# sendMessage(statement)
-"""
 
 def AddingEvent(request):
 	debug = os.getenv("DEBUG", "false")
