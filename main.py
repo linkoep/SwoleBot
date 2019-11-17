@@ -75,21 +75,9 @@ def getLeaderboardTop(n):
 
 def FindEvents():
 	db = firestore.Client()
-	events = []
-	# top = db.collection("users").order_by("num_workouts", direction=firestore.Query.DESCENDING).limit(n).stream()
 
-	statement = "Events: "
+	# statement = "Events: "
 
-	for event in events:
-		statement += event + "\n"
-
-	sendMessage(statement)
-
-
-def AAAA():
-	"""Shows basic usage of the Google Calendar API.
-	Prints the start and name of the next 10 events on the user's calendar.
-	"""
 	creds = None
 
 	if os.path.exists('token.pickle'):
@@ -118,6 +106,10 @@ def AAAA():
 		sendMessage(start, event["summary"])
 		# print(start, event['summary'])
 
+	# for event in events:
+		# statement += event + "\n"
+
+	# sendMessage(statement)
 
 def AddingEvent(request):
 	# Parse input and avoid self-replies
