@@ -3,7 +3,7 @@ import datetime
 import pickle
 import os.path
 
-import requests, json, os
+import requests, json, os, random
 from google.cloud import firestore
 
 from apiclient.discovery import build
@@ -16,6 +16,11 @@ lower = ["lower", "leg", "squat"]
 cardio =["cardio", "run", "ran", "swim", "swam", "pool", "canaan", "ultisquash", "bike", "bicycle"]
 skills = ["skills", "throw", "threw", "canaan", "ultisquash", "ultimate", "frisbee"]
 recovery = ["recovery", "kit", "ice", "rest", "heat", "stretch"]
+
+quotes = ["\"Core is 90% mental. That's a Curri quote, but I'm gonna keep saying it so all the freshmen think it's a me quote.\" - Calvin Jungreis",
+        "\"If you're not gaining, you're losing. And if you're losing, you're not winning\" - Matt Brown",
+        "\"“If you think lifting is dangerous, try being weak. Being weak is dangerous.\" - Some guy on the internet",
+        "\"Just. DO IT!\" - Shia LaBeauouauf"]
 
 def sendMessage(message):
 	bot_id = os.getenv("BOT_ID")
@@ -115,6 +120,16 @@ def FindEvents():
 			statement += event["summary"] + "\n"
 		sendMessage(statement)
 
+def MorningMessage():
+	statement = "Good Morning Trudge!\n"
+	statement += getKitHours()
+	statement += "\n"
+	statement += FindEvents()
+	statement += "\n"
+	statement += "Here's some motivation:\n"
+	statement += random.choice(quotes)
+	sendMessage(statement)
+	
 def AddingEvent(request):
 	debug = os.getenv("DEBUG", "false")
 		
@@ -136,6 +151,9 @@ def AddingEvent(request):
 		elif message.startswith('events'):
 			sendMessage("Finding Events. Please Wait a Second...")
 			FindEvents()
+		elif message.startswith('morning'):
+			sendMessage("Saying Good Morning. Please Wait a Second...")
+			MorningMessage()
 
 	# Non bot-commands
 	else: 
