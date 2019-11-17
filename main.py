@@ -142,11 +142,12 @@ def getKitHours():
 		statement = "Kit's Hours this week:"
 		for event in events:
 			start = str(event["start"].get("dateTime", event["start"].get("date")))
+			end = str(event["end"].get("dateTime", event["end"].get("date")))
 			# temp = start, event["summary"]
 			# print(start, event["summary"])
 			# statement += "\n" + start
 
-			statement += "\nOn {}/{}/{} @ {}:{}".format(start[0:4], start[5:7], start[8:10], start[11:13], start[14:16])
+			statement += "\nOn {}/{}/{} @ {}:{} - {}:{}".format(start[0:4], start[5:7], start[8:10], start[11:13], start[14:16], end[11:13], end[14:16])
 
 	return statement
 
