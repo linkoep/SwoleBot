@@ -152,23 +152,23 @@ def setKitHours(message):
 	if i == -1:
 		return "Invalid Input"
 
-	month = message[i-2:i]
-	day = message[i+1:i+3]
-	year = message[i+4:i+8]
+	month = int(message[i-2:i])
+	day = int(message[i+1:i+3])
+	year = int(message[i+4:i+8])
 
 	j = message.find(":", i)
 	if j == -1:
 		return "Invalid Input"
 
-	startHour = message[j-2:j]
-	startMin = message[j+1:j+3]
+	startHour = int(message[j-2:j])
+	startMin = int(message[j+1:j+3])
 
 	k = message.find(":", j+1)
 	if k == -1:
 		return "Invalid Input"
 
-	endHour = message[k-2:k]
-	endMin = message[k+1:k+3]
+	endHour = int(message[k-2:k])
+	endMin = int(message[k+1:k+3])
 
 	start = datetime(year, month, day, startHour, startMin, 0, 0)
 	end = datetime(year, month, day, endHour, endMin, 0, 0)
