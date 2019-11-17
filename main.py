@@ -9,6 +9,7 @@ from google.cloud import firestore
 from apiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 
+from datetime import datetime
 
 core = ["core", "abs", "plank"]
 upper = ["upper", "chest", "back", "shoulder", "tricep", "tri", "bicep", "push up"]
@@ -136,27 +137,63 @@ def getKitHours():
 
 	return statement
 
-def setKitHours():
-
-	event = {
-		"summary": "Kit's Hours",
-		"location": "Armory",
-		"description": "Go be healed",
-		"start": {
-			"dateTime": "2015-05-28T09:00:00-07:00",
-			"timeZone": "America/New_York",
-		},
-		"end": {
-			"dateTime": "2015-05-28T17:00:00-07:00",
-			"timeZone": "America/New_York",
-		},
-	}
+def setKitHours(message):
 
 	creds = None
 	if os.path.exists("token.pickle"):
 		with open("token.pickle", "rb") as token:
 			creds = pickle.load(token)
 	service = build("calendar", "v3", credentials=creds)
+
+	# set Kit's Hours 11/18/2019 09:30-14:30
+
+
+	i = message.find("/")
+	if i == -1:
+		return "Invalid Input"
+
+	month = message[i-2:i]
+	day = message[i+1:i+3]
+	year = message[i+4:i+8]
+
+	j = message.find(":", i)
+	if j == -1:
+		return "Invalid Input"
+
+	startHour = message[j-2:j]
+	startMin = message[j+1:j+3]
+
+	k = message.find(":", j+1)
+	if k == -1:
+		return "Invalid Input"
+
+	endHour = message[k-2:k]
+	endMin = message[k+1:k+3]
+
+
+
+	startTimes = []
+	endTimes = []
+
+
+	start = datetime(year, month, day, startHour, startMin, 0, 0)
+	end = datetime(year, month, day, endHour, endMin, 0, 0)
+
+
+	event = {
+		"summary": "Kit's Hours",
+		"location": "Armory",
+		"description": "Go be healed",
+		"start": {
+			"dateTime": start,
+			"timeZone": "America/New_York",
+		},
+		"end": {
+			"dateTime": end,
+			"timeZone": "America/New_York",
+		},
+	}
+
 	event = service.events().insert(calendarId="jqurd415p17322i9p9sqmq5g78@group.calendar.google.com", body=event).execute()
 
 	sendMessage("Hours have been added")
@@ -200,7 +237,7 @@ def AddingEvent(request):
 			sendMessage("Finding Kit's Hours. Please Wait a Second...")
 			sendMessage(getKitHours())
 		elif message.startswith("set kit"):
-			getKitHours()
+			getKitHours(message)
 		elif message.startswith('morning'):
 			sendMessage("Saying Good Morning. Please Wait a Second...")
 			MorningMessage()
