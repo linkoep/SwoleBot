@@ -179,11 +179,11 @@ def setKitHours(message):
 		"location": "Armory",
 		"description": "Go be healed",
 		"start": {
-			"dateTime": start,
+			"dateTime": "2015-05-28T09:00:00-07:00",
 			"timeZone": "America/New_York",
 		},
 		"end": {
-			"dateTime": end,
+			"dateTime": "2015-05-28T17:00:00-07:00",
 			"timeZone": "America/New_York",
 		},
 	}
