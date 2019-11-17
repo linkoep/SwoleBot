@@ -118,7 +118,7 @@ def getKitHours():
 	service = build("calendar", "v3", credentials=creds)
 
 	# Call the Calendar API
-	now = datetime.utcnow().isoformat() - 5
+	now = (datetime.utcnow() + datetime.timedelta(hours=-5)).isoformat()
 	events_result = service.events().list(calendarId="jqurd415p17322i9p9sqmq5g78@group.calendar.google.com", timeMin=now,
 										maxResults=10, singleEvents=True,
 										orderBy="startTime").execute()
