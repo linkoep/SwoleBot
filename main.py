@@ -88,7 +88,6 @@ def FindEvents():
 
 	# Call the Calendar API
 	now = datetime.datetime.utcnow().isoformat() + 'Z' # 'Z' indicates UTC time
-	sendMessage("Getting the upcoming 10 events")
 	events_result = service.events().list(calendarId="primary", timeMin=now,
 										maxResults=10, singleEvents=True,
 										orderBy="startTime").execute()
@@ -96,13 +95,13 @@ def FindEvents():
 	events = events_result.get('items', [])
 
 	if not events:
-		sendMessage("No upcoming events found.")
+		statement = "No upcoming events found."
 	else:
-		statement = ""
+		statement = "Upcoming events:"
 		for event in events:
 			start = event['start'].get('dateTime', event['start'].get('date'))
-			statement += event["summary"] + " @ " + str(start) + "\n"
-		sendMessage(statement)
+			statement += "\n" + event["summary"] + " @ " + str(start)
+	return statement
 
 def getKitHours():
 	creds = None
@@ -113,7 +112,6 @@ def getKitHours():
 
 	# Call the Calendar API
 	now = datetime.datetime.utcnow().isoformat() + 'Z' # 'Z' indicates UTC time
-	sendMessage("Kit's Hours this week:")
 	events_result = service.events().list(calendarId=jqurd415p17322i9p9sqmq5g78@group.calendar.google.com, timeMin=now,
 										maxResults=10, singleEvents=True,
 										orderBy='startTime').execute()
@@ -121,15 +119,17 @@ def getKitHours():
 	events = events_result.get('items', [])
 
 	if not events:
-		sendMessage("No hours uploaded")
+		statement = "No hours uploaded"
 	else:
-		statement = ""
+		statement = "Kit's Hours this week:"
 		for event in events:
 			start = event['start'].get('dateTime', event['start'].get('date'))
 			# temp = start, event["summary"]
 			# print(start, event['summary'])
-			statement += str(start) + "\n"
-		sendMessage(statement)
+			statement += "\n" + str(start)
+
+	return statement
+
 
 
 
@@ -153,10 +153,10 @@ def AddingEvent(request):
 			getLeaderboardTop(5)
 		elif message.startswith('events'):
 			sendMessage("Finding Events. Please Wait a Second...")
-			FindEvents()
+			sendMessage(FindEvents())
 		elif message.startswith('kit'):
 			sendMessage("Finding Kit's Hours. Please Wait a Second...")
-			getKitHours()
+			sendMessage(getKitHours())
 
 	# Non bot-commands
 	else: 
