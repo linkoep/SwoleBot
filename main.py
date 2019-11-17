@@ -85,8 +85,7 @@ def getLeaderboardTop(n):
 	sendMessage(statement)
 
 
-def FindEvents():
-
+def FindEvents(n):
 	creds = None
 	if os.path.exists("token.pickle"):
 		with open("token.pickle", "rb") as token:
@@ -96,7 +95,7 @@ def FindEvents():
 	# Call the Calendar API
 	now = datetime.datetime.utcnow().isoformat() + "Z" # "Z" indicates UTC time
 	events_result = service.events().list(calendarId="primary", timeMin=now,
-										maxResults=10, singleEvents=True,
+										maxResults=n, singleEvents=True,
 										orderBy="startTime").execute()
 
 	events = events_result.get("items", [])
@@ -168,7 +167,7 @@ def MorningMessage():
 	statement = "Good Morning Trudge!\n"
 	statement += getKitHours()
 	statement += "\n"
-	statement += FindEvents()
+	statement += FindEvents(3)
 	statement += "\n"
 	statement += "Here's some motivation:\n"
 	statement += random.choice(quotes)
@@ -194,7 +193,7 @@ def AddingEvent(request):
 			getLeaderboardTop(5)
 		elif message.startswith("events"):
 			sendMessage("Finding Events. Please Wait a Second...")
-			sendMessage(FindEvents())
+			sendMessage(FindEvents(10))
 		elif message.startswith("get kit"):
 			sendMessage("Finding Kit's Hours. Please Wait a Second...")
 			sendMessage(getKitHours())
