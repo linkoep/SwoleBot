@@ -100,8 +100,6 @@ def FindEvents():
 										maxResults=10, singleEvents=True,
 										orderBy='startTime').execute()
 
-	sendMessage("Good: 5")
-
 	events = events_result.get('items', [])
 
 	sendMessage("Good: 6")
@@ -110,7 +108,8 @@ def FindEvents():
 		sendMessage("No upcoming events found.")
 	for event in events:
 		start = event['start'].get('dateTime', event['start'].get('date'))
-		sendMessage(start, event["summary"])
+		temp = start, event["summary"]
+		sendMessage(temp)
 		# print(start, event['summary'])
 
 	# for event in events:
