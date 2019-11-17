@@ -121,19 +121,8 @@ def getKitHours():
 	now = datetime.now()
 
 	temp = now - timedelta(hours=5)
-	# current_time = temp.strftime("%H:%M:%S")
 
 	sendMessage(temp.isoformat())
-	"""
-	mydatetime = datetime.now()
-	
-	"""
-	# now = (datetime.now() - timedelta(hours=5)).isoformat()
-
-
-
-
-
 
 	events_result = service.events().list(calendarId="jqurd415p17322i9p9sqmq5g78@group.calendar.google.com", timeMin=temp.isoformat(),
 										maxResults=10, singleEvents=True,
