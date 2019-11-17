@@ -1,4 +1,5 @@
 from __future__ import print_function
+import datetime
 import pickle
 import os.path
 
@@ -7,8 +8,6 @@ from google.cloud import firestore
 
 from apiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
-
-from datetime import datetime, timedelta
 
 core = ["core", "abs", "plank"]
 upper = ["upper", "chest", "back", "shoulder", "tricep", "tri", "bicep", "push up"]
@@ -93,7 +92,7 @@ def FindEvents(n):
 	service = build("calendar", "v3", credentials=creds)
 
 	# Call the Calendar API
-	now = datetime.utcnow().isoformat() + "Z" # "Z" indicates UTC time
+	now = datetime.datetime.utcnow().isoformat() + "Z" # "Z" indicates UTC time
 	events_result = service.events().list(calendarId="primary", timeMin=now,
 										maxResults=n, singleEvents=True,
 										orderBy="startTime").execute()
@@ -117,7 +116,7 @@ def getKitHours():
 	service = build("calendar", "v3", credentials=creds)
 
 	# Call the Calendar API
-	now = (datetime.utcnow() - timedelta(hours=5)).isoformat()
+	now = (datetime.now() - timedelta(hours=5)).isoformat()
 	events_result = service.events().list(calendarId="jqurd415p17322i9p9sqmq5g78@group.calendar.google.com", timeMin=now,
 										maxResults=10, singleEvents=True,
 										orderBy="startTime").execute()
