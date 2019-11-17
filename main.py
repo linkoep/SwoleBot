@@ -84,7 +84,7 @@ def FindEvents():
 	flow = InstalledAppFlow.from_client_secrets_file("credentials.json", scopes=scopes) 
 	credentials = flow.run_console()
 
-	service = build(“calendar”, “v3”, credentials=credentials)
+	service = build("calendar", "v3", credentials=credentials)
 
 
 """
