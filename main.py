@@ -116,8 +116,10 @@ def getKitHours():
 	service = build("calendar", "v3", credentials=creds)
 
 	# Call the Calendar API
-	now = (datetime.now() - timedelta(hours=5)).isoformat()
-	events_result = service.events().list(calendarId="jqurd415p17322i9p9sqmq5g78@group.calendar.google.com", timeMin=now,
+	mydatetime = datetime.now()
+	temp = mydatetime - datetime.timedelta(hours=5)
+	# now = (datetime.now() - timedelta(hours=5)).isoformat()
+	events_result = service.events().list(calendarId="jqurd415p17322i9p9sqmq5g78@group.calendar.google.com", timeMin=temp.isoformat(),
 										maxResults=10, singleEvents=True,
 										orderBy="startTime").execute()
 
@@ -143,9 +145,10 @@ def setKitHours(message):
 			creds = pickle.load(token)
 	service = build("calendar", "v3", credentials=creds)
 
+	# d.isoformat()
+
 	# set Kit's Hours 11/18/2019 09:30-14:30
 
-	"""
 	i = message.find("/")
 	if i == -1:
 		return "Invalid Input"
@@ -170,18 +173,17 @@ def setKitHours(message):
 
 	start = datetime(year, month, day, startHour, startMin, 0, 0)
 	end = datetime(year, month, day, endHour, endMin, 0, 0)
-	"""
 
 	event = {
 		"summary": "Kit's Hours",
 		"location": "Armory",
 		"description": "Go be healed",
 		"start": {
-			"date": "2019-08-18T09:00",
+			"date": start.isoformat(),
 			"timeZone": "America/New_York",
 		},
 		"end": {
-			"date": "2019-08-18T12:30",
+			"date": end.isoformat(),
 			"timeZone": "America/New_York",
 		},
 	}
