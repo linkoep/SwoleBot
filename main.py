@@ -179,7 +179,8 @@ def AddingEvent(request):
 	# Parse input and avoid self-replies
 	request_dict = request.get_json()
 	if not request_dict:
-		sendMessage("Ahhh")
+		print("Forcing JSON Conversion", file=sys.stderr)
+		request_dict = request.get_json(force=True)
 	if request_dict["sender_type"] == "bot":
 		return "Bot message. Do not reply"
 	
