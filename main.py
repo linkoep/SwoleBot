@@ -67,12 +67,15 @@ def getLeaderboardTop(n):
 		sendMessage("{} => {} ".format(person.id, json.dumps(person.to_dict())))
 
 def AddingEvent(request):
+	debug = os.getenv("DEBUG", "false")
+		
 	# Parse input and avoid self-replies
 	request_dict = request.get_json()
 	if request_dict["sender_type"] == "bot":
 		return "Bot message. Do not reply"
 	
-	sendMessage(json.dumps(request_dict))
+	if debug.lower() == "true":
+		sendMessage(json.dumps(request_dict))
 	message = request_dict["text"]
 	
 	# Bot-commands
