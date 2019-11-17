@@ -118,7 +118,7 @@ def getKitHours():
 	service = build("calendar", "v3", credentials=creds)
 
 	# Call the Calendar API
-	now = (datetime.utcnow() - datetime.timedelta(hours=5)).isoformat()
+	now = (datetime.utcnow() - timedelta(hours=5)).isoformat()
 	events_result = service.events().list(calendarId="jqurd415p17322i9p9sqmq5g78@group.calendar.google.com", timeMin=now,
 										maxResults=10, singleEvents=True,
 										orderBy="startTime").execute()
@@ -179,11 +179,11 @@ def setKitHours(message):
 		"location": "Armory",
 		"description": "Go be healed",
 		"start": {
-			"date": "2019-08-18",
+			"date": "2019-08-18T09:00",
 			"timeZone": "America/New_York",
 		},
 		"end": {
-			"date": "2019-08-18",
+			"date": "2019-08-18T12:30",
 			"timeZone": "America/New_York",
 		},
 	}
