@@ -77,11 +77,23 @@ def FindEvents():
 	# statement = "Events: "
 
 	creds = None
-	sendMessage("Good: 1")
 	if os.path.exists('token.pickle'):
+		sendMessage("AAAA")
+		credentials.json
+
 		with open('token.pickle', 'rb') as token:
 			creds = pickle.load(token)
-	sendMessage("Good: 2")
+
+	if os.path.exists('credentials.json'):
+		sendMessage("BBB")
+		with open('credentials.json', 'rb') as token:
+			creds = pickle.load(token)
+
+	if os.path.exists('credentials'):
+		sendMessage("CCC")
+		with open('credentials', 'rb') as token:
+			creds = pickle.load(token)
+
 	if creds == None:
 		sendMessage("BADDD")
 		return "BADDD"
