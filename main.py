@@ -74,7 +74,8 @@ def getLeaderboardTop(n):
 
 	sendMessage( "Top {} all time: ".format(n))
 	for person in top:
-		sendMessage("{} => {} ".format(person.id, json.dumps(person.to_dict())))
+		person_dict = person.to_dict()
+		sendMessage("{} with {} workouts".format(person_dict.get("name", "unknown"), person_dict["num_workouts"]))
 
 def FindEvents():
 
