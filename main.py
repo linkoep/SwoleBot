@@ -78,9 +78,6 @@ def getLeaderboardTop(n):
 def FindEvents():
 	scopes = ['https://www.googleapis.com/auth/calendar']
 
-	bot_id = os.getenv("CREDENTIALS")
-	data = json.dumps(bot_id)
-
 	flow = InstalledAppFlow.from_client_secrets_file("credentials.json", scopes=scopes) 
 	credentials = flow.run_console()
 
