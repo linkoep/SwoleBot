@@ -140,8 +140,9 @@ def setKitHours(message):
 			creds = pickle.load(token)
 	service = build("calendar", "v3", credentials=creds)
 
-	# set Kit's Hours 11/18/2019 09:30-14:30
+	# Kit's Hours on Monday at 09:30-14:30
 
+	"""
 	i = message.find("/")
 	if i == -1:
 		return "Invalid Input"
@@ -182,31 +183,13 @@ def setKitHours(message):
 			"timeZone": "America/New_York",
 		}
 	}
-
+	"""
 	created_event = service.events().quickAdd(
     	calendarId='jqurd415p17322i9p9sqmq5g78@group.calendar.google.com',
-    	text='Appointment at Somewhere on November 18 10am-10:25am').execute()
+    	text=message).execute()
 
-	"""
-
-	event = {
-		"summary": "Kit's Hours",
-		"location": "Armory",
-		"description": "Go be healed",
-		"start": {
-			"date": "2019-08-18T09:00",
-			"timeZone": "America/New_York",
-		},
-		"end": {
-			"date": "2019-08-18T12:30",
-			"timeZone": "America/New_York",
-		},
-	}
-	"""
-
-	sendMessage("GGG")
-
-	event = service.events().insert(calendarId="jqurd415p17322i9p9sqmq5g78@group.calendar.google.com", body=event).execute()
+	# sendMessage("GGG")
+	# event = service.events().insert(calendarId="jqurd415p17322i9p9sqmq5g78@group.calendar.google.com", body=event).execute()
 
 	sendMessage("Hours have been added")
 
@@ -250,7 +233,7 @@ def AddingEvent(request):
 			sendMessage("Finding Kit's Hours. Please Wait a Second...")
 			sendMessage(getKitHours())
 		elif message.startswith("set kit"):
-			setKitHours(message)
+			setKitHours(message[4:])
 		elif message.startswith('morning'):
 			sendMessage("Saying Good Morning. Please Wait a Second...")
 			MorningMessage()
