@@ -128,7 +128,7 @@ def getKitHours():
 
 	now = datetime.utcnow().isoformat() + "Z" # "Z" indicates UTC time
 	events_result = service.events().list(calendarId="jqurd415p17322i9p9sqmq5g78@group.calendar.google.com", 
-		timeMin=now, maxResults=n, singleEvents=True, orderBy="startTime").execute()
+		timeMin=now, maxResults=4, singleEvents=True, orderBy="startTime").execute()
 
 
 
