@@ -78,25 +78,14 @@ def getLeaderboardTop(n):
 
 def FindEvents():
 
-	"""Shows basic usage of the Google Calendar API.
-	Prints the start and name of the next 10 events on the user's calendar.
-	"""
-	creds = None
-	# The file token.pickle stores the user's access and refresh tokens, and is
-	# created automatically when the authorization flow completes for the first
-	# time.
-	if os.path.exists('token.pickle'):
-		with open('token.pickle', 'rb') as token:
-			creds = pickle.load(token)
-
-	service = build('calendar', 'v3', credentials=creds)
+	service = build('calendar', 'v3', credentials=pickle.load(token))
 
 	# Call the Calendar API
 	now = datetime.datetime.utcnow().isoformat() + 'Z' # 'Z' indicates UTC time
 	sendMessage("Getting the upcoming 10 events")
-	events_result = service.events().list(calendarId='primary', timeMin=now,
+	events_result = service.events().list(calendarId="primary", timeMin=now,
 										maxResults=10, singleEvents=True,
-										orderBy='startTime').execute()
+										orderBy="startTime").execute()
 
 	events = events_result.get('items', [])
 
@@ -105,11 +94,34 @@ def FindEvents():
 	else:
 		statement = ""
 		for event in events:
-			# start = event['start'].get('dateTime', event['start'].get('date'))
+			start = event['start'].get('dateTime', event['start'].get('date'))
+			statement += event["summary"] " @ " + start + "\n"
+		sendMessage(statement)
+
+def getKitHours():
+	service = build('calendar', 'v3', credentials=pickle.load(token))
+
+	# Call the Calendar API
+	now = datetime.datetime.utcnow().isoformat() + 'Z' # 'Z' indicates UTC time
+	sendMessage("Kit's Hours this week:")
+	events_result = service.events().list(calendarId=jqurd415p17322i9p9sqmq5g78@group.calendar.google.com, timeMin=now,
+										maxResults=10, singleEvents=True,
+										orderBy='startTime').execute()
+
+	events = events_result.get('items', [])
+
+	if not events:
+		sendMessage("No hours uploaded")
+	else:
+		statement = ""
+		for event in events:
+			start = event['start'].get('dateTime', event['start'].get('date'))
 			# temp = start, event["summary"]
 			# print(start, event['summary'])
-			statement += event["summary"] + "\n"
+			statement += start + "\n"
 		sendMessage(statement)
+
+
 
 def AddingEvent(request):
 	debug = os.getenv("DEBUG", "false")
