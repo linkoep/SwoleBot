@@ -79,17 +79,17 @@ def getLeaderboardTop(n):
 def FindEvents():
 
 	"""Shows basic usage of the Google Calendar API.
-    Prints the start and name of the next 10 events on the user's calendar.
-    """
-    creds = None
-    # The file token.pickle stores the user's access and refresh tokens, and is
-    # created automatically when the authorization flow completes for the first
-    # time.
-    if os.path.exists('token.pickle'):
-        with open('token.pickle', 'rb') as token:
-            creds = pickle.load(token)
+	Prints the start and name of the next 10 events on the user's calendar.
+	"""
+	creds = None
+	# The file token.pickle stores the user's access and refresh tokens, and is
+	# created automatically when the authorization flow completes for the first
+	# time.
+	if os.path.exists('token.pickle'):
+		with open('token.pickle', 'rb') as token:
+			creds = pickle.load(token)
 
-    service = build('calendar', 'v3', credentials=creds)
+	service = build('calendar', 'v3', credentials=creds)
 
 	sendMessage("Good: 4")
 
