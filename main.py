@@ -230,14 +230,21 @@ def AddingEvent(request):
 		elif message.startswith("events"):
 			# sendMessage("Finding Events. Please Wait a Second...")
 			sendMessage(FindEvents(10))
-		elif message.startswith("get kit"):
+		elif message.startswith("kit's hours"):
 			# sendMessage("Finding Kit's Hours. Please Wait a Second...")
 			sendMessage(getKitHours())
-		elif message.startswith("set kit"):
+		elif message.startswith("set hours"):
 			setKitHours(message[4:])
 		elif message.startswith('morning'):
 			# sendMessage("Saying Good Morning. Please Wait a Second...")
 			MorningMessage()
+		elif message.startswith('help'):
+			statement = "Share a picture of you while working at and @ all others involved\n"
+			statement += "!bot leaderboard: Gets the top 5 most active members on Trudge\n"
+			statement += "!bot events: See upcoming Trudge events\n"
+			statement += "!bot Kit's Hours: See Kit's hours for that week\n"
+
+			message.startswith(statement):
 
 	# Non bot-commands
 	else: 
