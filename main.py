@@ -19,7 +19,16 @@ recovery = ["recovery", "kit", "ice", "rest", "heat", "stretch"]
 quotes = ["\"Core is 90% mental. That's a Curri quote, but I'm gonna keep saying it so all the freshmen think it's a me quote.\" - Calvin Jungreis",
         "\"If you're not gaining, you're losing. And if you're losing, you're not winning\" - Matt Brown",
         "\"If you think lifting is dangerous, try being weak. Being weak is dangerous.\" - Some guy on the internet",
-        "\"Just. DO IT!\" - Shia LaBeauouauf"]
+        "\"Just. DO IT!\" - Shia LaBeauouauf",
+        "\"Pain is just weakness leaving the body\" - Chesty Puller (Yes that's a real person)",
+        "\"Frisbee is 20% mental, and 80% being mental\" - Some old dude on Trudge",
+        "\"I am a gladiator! My body is a machine! I hit home runs! Because I'm F O C U S E D   A S   F U C K\" - Devin & Alec",
+        "\"Fat and Ugly? Join a gym and just be ugly!\"",
+        "\"Curls get the girls, but tri's get the guys ;)\"",
+        "\"Motivation is what gets you started. Habit is what gets you going\"",
+        "\"Square the fuck up or shut the fuck up\" - Brooks Wallace",
+        "\"Sucking at something is the first step to being sorta good at something\" - Jake the Dog"
+        ]
 
 def sendMessage(message):
 	bot_id = os.getenv("BOT_ID")
@@ -154,7 +163,7 @@ def setKitHours(message):
 
 
 def MorningMessage():
-	statement = "Good Morning Trudge!\n"
+	statement = "Rise and Grind Trudge!\n"
 	statement += getKitHours()
 	statement += "\n"
 	statement += FindEvents(3)
