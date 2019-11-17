@@ -119,6 +119,7 @@ def getKitHours():
 
 
 	now = datetime.now()
+
 	temp = now - timedelta(hours=5)
 	events_result = service.events().list(calendarId="jqurd415p17322i9p9sqmq5g78@group.calendar.google.com", timeMin=temp.isoformat(),
 										maxResults=10, singleEvents=True,
@@ -131,10 +132,11 @@ def getKitHours():
 	else:
 		statement = "Kit's Hours this week:"
 		for event in events:
-			start = str(event["start"].get("dateTime", event["start"].get("date")))
+			start = event["start"].get("dateTime", event["start"].get("date"))
 			# temp = start, event["summary"]
 			# print(start, event["summary"])
-			statement += "\n On {}/{}/{} @ {}:{}".format(start[:4], start[5:7], start[8:10], start[5:7])
+			statement += "\n" + str(start)
+
 	return statement
 
 def setKitHours(message):
