@@ -72,9 +72,11 @@ def getLeaderboardTop(n):
 	top = db.collection("users").order_by("num_workouts", direction=firestore.Query.DESCENDING).limit(n).stream()
 
 	statement = "Top {} all time:\n".format(n)
-	for i in range(len(top)):
-		person_dict = top[i].to_dict()
+	i = 1
+	for person in top:
+		person_dict = person.to_dict()
 		statement += "{}.) {} with {} workouts\n".format(i, person_dict.get("name", "unknown"), person_dict["num_workouts"])
+		i+=1 
 	sendMessage(statement)
 
 
