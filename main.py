@@ -225,18 +225,18 @@ def AddingEvent(request):
 	if message.startswith("!bot "):
 		message = message[5:]
 		if message.startswith("leaderboard"):
-			sendMessage("Calculating Leaderboard. Please Wait a Second...")
+			# sendMessage("Calculating Leaderboard. Please Wait a Second...")
 			getLeaderboardTop(5)
 		elif message.startswith("events"):
-			sendMessage("Finding Events. Please Wait a Second...")
+			# sendMessage("Finding Events. Please Wait a Second...")
 			sendMessage(FindEvents(10))
 		elif message.startswith("get kit"):
-			sendMessage("Finding Kit's Hours. Please Wait a Second...")
+			# sendMessage("Finding Kit's Hours. Please Wait a Second...")
 			sendMessage(getKitHours())
 		elif message.startswith("set kit"):
-			setKitHours(message[4:].title())
+			setKitHours(message[4:])
 		elif message.startswith('morning'):
-			sendMessage("Saying Good Morning. Please Wait a Second...")
+			# sendMessage("Saying Good Morning. Please Wait a Second...")
 			MorningMessage()
 
 	# Non bot-commands
