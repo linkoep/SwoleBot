@@ -78,6 +78,8 @@ def getLeaderboardTop(n):
 def FindEvents():
 	# statement = "Events: "
 
+	SCOPES = ['https://www.googleapis.com/auth/calendar.readonly']
+
 	creds = None
 	if os.path.exists('token.pickle'):
 		with open('token.pickle', 'rb') as token:
