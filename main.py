@@ -140,7 +140,7 @@ def setKitHours(message):
 			creds = pickle.load(token)
 	service = build("calendar", "v3", credentials=creds)
 
-	# Kit's Hours on Monday at 09:30-14:30
+	# Kit's Hours on November 18 at 09:30-14:30
 
 	"""
 	i = message.find("/")
@@ -184,6 +184,9 @@ def setKitHours(message):
 		}
 	}
 	"""
+
+	sendMessage("message")
+
 	created_event = service.events().quickAdd(
     	calendarId='jqurd415p17322i9p9sqmq5g78@group.calendar.google.com',
     	text=message).execute()
