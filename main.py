@@ -91,8 +91,6 @@ def FindEvents():
 
 	service = build('calendar', 'v3', credentials=creds)
 
-	sendMessage("Good: 4")
-
 	# Call the Calendar API
 	now = datetime.datetime.utcnow().isoformat() + 'Z' # 'Z' indicates UTC time
 	sendMessage("Getting the upcoming 10 events")
@@ -101,9 +99,6 @@ def FindEvents():
 										orderBy='startTime').execute()
 
 	events = events_result.get('items', [])
-
-	sendMessage("Good: 6")
-
 
 	if not events:
 		sendMessage("No upcoming events found.")
