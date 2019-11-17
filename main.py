@@ -117,13 +117,22 @@ def getKitHours():
 
 	# Call the Calendar API
 
-
+	"""
 	now = datetime.now()
 	temp = now - timedelta(hours=5)
 	sendMessage(temp.isoformat())
 
 	events_result = service.events().list(calendarId="jqurd415p17322i9p9sqmq5g78@group.calendar.google.com", 
 		timeMin=datetime.now(), maxResults=10, orderBy="startTime").execute()
+	"""
+
+	now = datetime.utcnow().isoformat() + "Z" # "Z" indicates UTC time
+	events_result = service.events().list(calendarId="jqurd415p17322i9p9sqmq5g78@group.calendar.google.com", 
+		timeMin=now, maxResults=n, singleEvents=True, orderBy="startTime").execute()
+
+
+
+
 
 	events = events_result.get("items", [])
 
