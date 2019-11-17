@@ -104,18 +104,17 @@ def FindEvents():
 
 	sendMessage("Good: 6")
 
+
 	if not events:
 		sendMessage("No upcoming events found.")
-	for event in events:
-		# start = event['start'].get('dateTime', event['start'].get('date'))
-		# temp = start, event["summary"]
-		sendMessage(event["summary"])
-		# print(start, event['summary'])
-
-	# for event in events:
-		# statement += event + "\n"
-
-	# sendMessage(statement)
+	else:
+		statement = ""
+		for event in events:
+			# start = event['start'].get('dateTime', event['start'].get('date'))
+			# temp = start, event["summary"]
+			# print(start, event['summary'])
+			statement += event["summary"] + "\n"
+		sendMessage(statement)
 
 def AddingEvent(request):
 	debug = os.getenv("DEBUG", "false")
