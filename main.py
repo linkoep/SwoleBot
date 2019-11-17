@@ -178,6 +178,8 @@ def AddingEvent(request):
 		
 	# Parse input and avoid self-replies
 	request_dict = request.get_json()
+        if not request_dict:
+            sendMessage("Ahhh")
 	if request_dict["sender_type"] == "bot":
 		return "Bot message. Do not reply"
 	
