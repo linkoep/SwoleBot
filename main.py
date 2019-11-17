@@ -130,7 +130,7 @@ def getKitHours():
 
 	return statement
 
-def setKitHours(message):
+def setKitHours():
 
 	event = {
 		"summary": "Kit's Hours",
