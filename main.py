@@ -1,5 +1,5 @@
 from __future__ import print_function
-import datetime
+from datetime import datetime, timedelta
 import pickle
 import os.path
 
@@ -92,7 +92,7 @@ def FindEvents(n):
 	service = build("calendar", "v3", credentials=creds)
 
 	# Call the Calendar API
-	now = datetime.datetime.utcnow().isoformat() + "Z" # "Z" indicates UTC time
+	now = datetime.utcnow().isoformat() + "Z" # "Z" indicates UTC time
 	events_result = service.events().list(calendarId="primary", timeMin=now,
 										maxResults=n, singleEvents=True,
 										orderBy="startTime").execute()
@@ -116,10 +116,22 @@ def getKitHours():
 	service = build("calendar", "v3", credentials=creds)
 
 	# Call the Calendar API
+
+
+	now = datetime.now()
+	current_time = now.strftime("%H:%M:%S")
+	"""
 	mydatetime = datetime.now()
-	temp = mydatetime - datetime.timedelta(hours=5)
+	temp = mydatetime - timedelta(hours=5)
+	"""
 	# now = (datetime.now() - timedelta(hours=5)).isoformat()
-	events_result = service.events().list(calendarId="jqurd415p17322i9p9sqmq5g78@group.calendar.google.com", timeMin=temp.isoformat(),
+
+
+
+
+
+
+	events_result = service.events().list(calendarId="jqurd415p17322i9p9sqmq5g78@group.calendar.google.com", timeMin=current_time.isoformat(),
 										maxResults=10, singleEvents=True,
 										orderBy="startTime").execute()
 
@@ -149,6 +161,7 @@ def setKitHours(message):
 
 	# set Kit's Hours 11/18/2019 09:30-14:30
 
+	"""
 	i = message.find("/")
 	if i == -1:
 		return "Invalid Input"
@@ -173,7 +186,7 @@ def setKitHours(message):
 
 	start = datetime(year, month, day, startHour, startMin, 0, 0)
 	end = datetime(year, month, day, endHour, endMin, 0, 0)
-
+	
 	event = {
 		"summary": "Kit's Hours",
 		"location": "Armory",
@@ -184,6 +197,21 @@ def setKitHours(message):
 		},
 		"end": {
 			"date": end.isoformat(),
+			"timeZone": "America/New_York",
+		},
+	}
+	"""
+
+	event = {
+		"summary": "Kit's Hours",
+		"location": "Armory",
+		"description": "Go be healed",
+		"start": {
+			"date": "2019-08-18T09:00",
+			"timeZone": "America/New_York",
+		},
+		"end": {
+			"date": "2019-08-18T12:30",
 			"timeZone": "America/New_York",
 		},
 	}
