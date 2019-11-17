@@ -9,6 +9,7 @@ def populateNames(request):
 		
 	if debug.lower() == "true":
 		print("Fetching last 50 messages")
-	messages = requests.get("https://api.groupme.com/v3/groups/"+group_id+"/messages?token="+access_token+"&limit=50")
+	messages_response = requests.get("https://api.groupme.com/v3/groups/"+group_id+"/messages?token="+access_token+"&limit=50")
+	messages = messages_response.json()
 	print(messages)
 	return messages
