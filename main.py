@@ -44,15 +44,11 @@ def DatesFormat(event):
 	endDate = datetime.fromisoformat(endEvent)
 	endString = startDate.strftime("%H:%M")
 
-	sendMessage(endString)
-
 	if endString == "00:00":
 		startString = startDate.strftime("%m/%d")
 		return "\n    On {}: All Day".format(startString)
 	else:
 		return "\n    On {} - {}".format(startString, endString)
-
-	# return "\n    On {}/{}/{} @ {}:{} - {}:{}".format(start[0:4], start[5:7], start[8:10], start[11:13], start[14:16], end[11:13], end[14:16])
 
 def addWorkout(msg_id, workout_type, unix_time, list_ids):
 	db = firestore.Client()
@@ -223,13 +219,13 @@ def AddingEvent(request):
 		if message.startswith("leaderboard"):
 			# sendMessage("Calculating Leaderboard. Please Wait a Second...")
 			getLeaderboardTop(5)
-		elif message.startswith("events"):
+		elif message.startswith("event"):
 			# sendMessage("Finding Events. Please Wait a Second...")
 			sendMessage(FindEvents(5))
-		elif message.startswith("kit's hours"):
+		elif message.startswith("get kit"):
 			# sendMessage("Finding Kit's Hours. Please Wait a Second...")
 			sendMessage(getKitHours())
-		elif message.startswith("set kit's hours"):
+		elif message.startswith("set kit"):
 			setKitHours(message[4:])
 		elif message.startswith('morning'):
 			# sendMessage("Saying Good Morning. Please Wait a Second...")
