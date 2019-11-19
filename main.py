@@ -12,7 +12,7 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 core = ["core", "abs", "plank"]
 upper = ["upper", "chest", "shoulder", "tricep", "tri", "bicep", "push up", "strength"]
 lower = ["lower", "leg", "squat"]
-cardio =["cardio", "run", "ran", "swim", "swam", "pool", "canaan", "ultisquash", "bike", "bicycle", "mile", "treadmill", "hit"]
+cardio =["cardio", "run", "ran", "swim", "swam", "pool", "canaan", "ultisquash", "bike", "bicycle", "mile", "treadmill", "hit", "track"]
 skills = ["skills", "throw", "threw", "canaan", "ultisquash", "ultimate", "frisbee"]
 recovery = ["recovery", "kit", "ice", "rest", "heat", "stretch", "yoga", ]
 
@@ -42,7 +42,7 @@ def DatesFormat(event):
 
 	sendMessage(event)
 
-	
+
 
 	return "\nOn {}/{}/{} @ {}:{} - {}:{}".format(start[0:4], start[5:7], start[8:10], start[11:13], start[14:16], end[11:13], end[14:16])
 
@@ -135,7 +135,7 @@ def FindEvents(n):
 	else:
 		statement = "Upcoming Events:"
 		for event in events:
-			statement += str(event["id"]: + "\n   ")
+			statement += str(event["id"]) + ":\n   "
 			statement += DatesFormat(event)
 	return statement
 
