@@ -42,6 +42,8 @@ def DatesFormat(event):
 
 	sendMessage(event)
 
+	
+
 	return "\nOn {}/{}/{} @ {}:{} - {}:{}".format(start[0:4], start[5:7], start[8:10], start[11:13], start[14:16], end[11:13], end[14:16])
 
 def addWorkout(msg_id, workout_type, unix_time, list_ids):
