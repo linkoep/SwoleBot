@@ -225,10 +225,10 @@ def Resources(message):
 	# sendMessage(links)
 
 	temp = doc.to_dict()
-
 	sendMessage(json.dumps(temp))
+	sendMessage(temp)
 
-	print(u'Document data: {}'.format(temp))
+
 
 
 	"""
