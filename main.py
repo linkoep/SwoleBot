@@ -224,7 +224,11 @@ def Resources(message):
 
 	# sendMessage(links)
 
-	print(u'Document data: {}'.format(doc.to_dict()))
+	temp = doc.to_dict()
+
+	sendMessage(json.dumps(temp))
+
+	print(u'Document data: {}'.format(temp))
 
 
 	"""
