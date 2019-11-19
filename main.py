@@ -194,6 +194,49 @@ def MorningMessage():
 	statement += random.choice(quotes)
 	sendMessage(statement)
 	
+def Resources(message):
+
+	db = firestore.Client()
+
+	if message.startswith("cardio"):
+		links = db.collection("resources").document("cardio").list()
+
+	elif message.startswith("core"):
+		links = db.collection("resources").document("core").list()
+
+	elif message.startswith("full body"):
+		links = db.collection("resources").document("full body").list()
+
+	elif message.startswith("lower"):
+		links = db.collection("resources").document("lower").list()
+
+	elif message.startswith("skills"):
+		links = db.collection("resources").document("skills").list()
+
+	elif message.startswith("upper"):
+		links = db.collection("resources").document("upper").list()
+
+
+	i = 1
+	statement = "Resources:\n"
+	for link in links:
+		link_dict = link.to_dict()
+		sendMessage(link_dict)
+		statement += link_dict["stringValue"]
+		i+=1 
+
+	sendMessage(statement)
+
+
+	"""
+	for person in top:
+		person_dict = person.to_dict()
+		statement += "{}.) {} with {} workouts\n".format(i, person_dict.get("name", "unknown"), person_dict["num_workouts"])
+		
+	sendMessage(statement)
+	"""
+
+
 def AddingEvent(request):
 	debug = os.getenv("DEBUG", "false")
 		
@@ -207,13 +250,9 @@ def AddingEvent(request):
 	
 	if debug.lower() == "true":
 		sendMessage(json.dumps(request_dict))
-		
+
 	message = request_dict["text"].lower()
 
-	if message.startswith("good bot") or message.startswith("thanks bot"):
-		statement = "Thanks " + request_dict["name"]
-		sendMessage(statement)
-	
 	# Bot-commands
 	if message.startswith("!bot "):
 		message = message[5:]
@@ -231,6 +270,11 @@ def AddingEvent(request):
 		elif message.startswith('morning'):
 			# sendMessage("Saying Good Morning. Please Wait a Second...")
 			MorningMessage()
+		elif message.startswith('resources'):
+			# sendMessage("Saying Good Morning. Please Wait a Second...")
+			Resources(message[10:])
+
+
 		elif message.startswith('help'):
 			statement = "Share a picture of you while working out and @ all others involved\n"
 			statement += "Commands:\n"
@@ -244,7 +288,6 @@ def AddingEvent(request):
 			statement += "Updated key words\n"
 			statement += "Fixed how time is displayed for events\n"
 			statement += "More Quotes!!!!\n"
-			statement += "Added this \"good bot\" command\n"
 			statement += "Added this update command\n"
 			sendMessage(statement)
 
