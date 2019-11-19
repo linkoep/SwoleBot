@@ -10,7 +10,7 @@ from apiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 
 core = ["core", "abs", "plank"]
-upper = ["upper", "chest", "shoulder", "tricep", "tri", "bicep", "push up", "strength"]
+upper = ["upper", "chest", "shoulder", "tricep", "tri", "bicep", "push up", "strength", "lift"]
 lower = ["lower", "leg", "squat"]
 cardio =["cardio", "run", "ran", "swim", "swam", "pool", "canaan", "ultisquash", "bike", "bicycle", "mile", "treadmill", "hiit", "track"]
 skills = ["skills", "throw", "threw", "canaan", "ultisquash", "ultimate", "frisbee"]
@@ -36,14 +36,21 @@ def sendMessage(message):
 	requests.post("https://api.groupme.com/v3/bots/post", data=data)
 
 def DatesFormat(event):
-	start = event["start"].get("dateTime", event["start"].get("date"))
-	end = event["end"].get("dateTime", event["end"].get("date"))
+	startEvent = event["start"].get("dateTime", event["start"].get("date"))
+	startDate = datetime.fromisoformat(startEvent)
+	startString = startDate.strftime("%m/%d @ %H:%M")
 
-	startDate = datetime.fromisoformat(start)
+	endEvent = event["end"].get("dateTime", event["end"].get("date"))
+	endDate = datetime.fromisoformat(endEvent)
+	endString = startDate.strftime("%H:%M")
 
 	sendMessage(end)
 
-	return "\n    On {} - {}:{}".format(startDate.strftime("%m/%d @ %H:%M:%S"), end[11:13], end[14:16])
+	if endString == "00:00":
+		startString = startDate.strftime("%m/%d")
+		return "\n    On {}: All Day".format(startString)
+	else:
+		return "\n    On {} - {}".format(startString, endString)
 
 	# return "\n    On {}/{}/{} @ {}:{} - {}:{}".format(start[0:4], start[5:7], start[8:10], start[11:13], start[14:16], end[11:13], end[14:16])
 
@@ -134,9 +141,9 @@ def FindEvents(n):
 	if not events:
 		statement = "No Upcoming Hours Found"
 	else:
-		statement = "\nUpcoming Events:"
+		statement = "Upcoming Events:"
 		for event in events:
-			statement += str(event["summary"]) + ":"
+			statement += "\n" + event["summary"] + ":"
 			statement += DatesFormat(event)
 	return statement
 
