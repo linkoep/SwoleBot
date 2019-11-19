@@ -42,9 +42,9 @@ def DatesFormat(event):
 
 	endEvent = event["end"].get("dateTime", event["end"].get("date"))
 	endDate = datetime.fromisoformat(endEvent)
-	endString = startDate.strftime("%H:%M")
+	endString = endDate.strftime("%H:%M")
 
-	if endString == "00:00":
+	if endString == "00:00" and startDate.strftime("%H:%M") == "00:00":
 		startString = startDate.strftime("%m/%d")
 		return "\n    On {}: All Day".format(startString)
 	else:
@@ -207,6 +207,7 @@ def AddingEvent(request):
 	
 	if debug.lower() == "true":
 		sendMessage(json.dumps(request_dict))
+		
 	message = request_dict["text"].lower()
 
 	if message.startswith("good bot") or message.startswith("thanks bot"):
@@ -233,14 +234,16 @@ def AddingEvent(request):
 		elif message.startswith('help'):
 			statement = "Share a picture of you while working out and @ all others involved\n"
 			statement += "Commands:\n"
-			statement += "!bot leaderboard: Gets the top 5 most active members on Trudge\n"
+			statement += "!bot leaderboard: See most active Trudge members\n"
 			statement += "!bot events: See upcoming Trudge events\n"
-			statement += "!bot Kit's Hours: See Kit's hours for that week\n"
+			statement += "!bot get kit: See Kit's hours for that week\n"
+			statement += "!bot set kit ____: Set a time that kit will be in\n"
 			sendMessage(statement)
 		elif message.startswith('update'):
 			statement = "Patch Notes:\n"
 			statement += "Updated key words\n"
 			statement += "Fixed how time is displayed for events\n"
+			statement += "More Quotes!!!!\n"
 			statement += "Added this \"good bot\" command\n"
 			statement += "Added this update command\n"
 			sendMessage(statement)
