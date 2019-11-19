@@ -226,7 +226,7 @@ def Resources(message):
 
 	temp = doc.to_dict()
 	sendMessage(json.dumps(temp))
-	sendMessage(temp)
+	sendMessage(doc)
 
 
 
