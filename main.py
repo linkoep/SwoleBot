@@ -128,7 +128,7 @@ def FindEvents(n):
 	if not events:
 		statement = "No Upcoming Hours Found"
 	else:
-		statement = "Upcoming Events:"
+		statement = "\nUpcoming Events:"
 		for event in events:
 			statement += str(event["summary"]) + ":"
 			statement += DatesFormat(event)
