@@ -12,7 +12,7 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 core = ["core", "abs", "plank"]
 upper = ["upper", "chest", "shoulder", "tricep", "tri", "bicep", "push up", "strength"]
 lower = ["lower", "leg", "squat"]
-cardio =["cardio", "run", "ran", "swim", "swam", "pool", "canaan", "ultisquash", "bike", "bicycle", "mile", "treadmill", "hit", "track"]
+cardio =["cardio", "run", "ran", "swim", "swam", "pool", "canaan", "ultisquash", "bike", "bicycle", "mile", "treadmill", "hiit", "track"]
 skills = ["skills", "throw", "threw", "canaan", "ultisquash", "ultimate", "frisbee"]
 recovery = ["recovery", "kit", "ice", "rest", "heat", "stretch", "yoga", ]
 
@@ -39,7 +39,7 @@ def DatesFormat(event):
 	start = event["start"].get("dateTime", event["start"].get("date"))
 	end = event["end"].get("dateTime", event["end"].get("date"))
 
-	startDate = date.fromisoformat(start)
+	startDate = datetime.fromisoformat(start)
 
 	sendMessage(end)
 
