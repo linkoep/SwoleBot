@@ -216,7 +216,11 @@ def Resources(message):
 	elif message.startswith("upper"):
 		links = db.collection("resources").document("upper").get()
 
+	sendMessage(links.to_dict())
+	sendMessage(links)
 
+
+	"""
 	i = 1
 	statement = "Resources:\n"
 	for link in links:
@@ -226,6 +230,7 @@ def Resources(message):
 		i+=1 
 
 	sendMessage(statement)
+	"""
 
 
 	"""
