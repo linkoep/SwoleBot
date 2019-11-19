@@ -199,24 +199,32 @@ def Resources(message):
 	db = firestore.Client()
 
 	if message.startswith("cardio"):
-		links = db.collection("resources").document("cardio").get()
+		doc_ref = db.collection("resources").document("cardio")
+		doc = doc_ref.get()
 
 	elif message.startswith("core"):
-		links = db.collection("resources").document("core").get()
+		doc_ref = db.collection("resources").document("core")
+		doc = doc_ref.get()
 
 	elif message.startswith("full body"):
-		links = db.collection("resources").document("full body").get()
+		doc_ref = db.collection("resources").document("full body")
+		doc = doc_ref.get()
 
 	elif message.startswith("lower"):
-		links = db.collection("resources").document("lower").get()
+		doc_ref = db.collection("resources").document("lower")
+		doc = doc_ref.get()
 
 	elif message.startswith("skills"):
-		links = db.collection("resources").document("skills").get()
+		doc_ref = db.collection("resources").document("skills")
+		doc = doc_ref.get()
 
 	elif message.startswith("upper"):
-		links = db.collection("resources").document("upper").get()
+		doc_ref = db.collection("resources").document("upper")
+		doc = doc_ref.get()
 
-	sendMessage(links)
+	# sendMessage(links)
+
+	print(u'Document data: {}'.format(doc.to_dict()))
 
 
 	"""
