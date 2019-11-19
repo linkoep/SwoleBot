@@ -44,7 +44,7 @@ def DatesFormat(event):
 	endDate = datetime.fromisoformat(endEvent)
 	endString = startDate.strftime("%H:%M")
 
-	sendMessage(end)
+	sendMessage(endString)
 
 	if endString == "00:00":
 		startString = startDate.strftime("%m/%d")
