@@ -35,6 +35,11 @@ def sendMessage(message):
 	data = json.dumps({"text": message, "bot_id": bot_id})
 	requests.post("https://api.groupme.com/v3/bots/post", data=data)
 
+def DatesFormat(event):
+	start = str(event["start"].get("dateTime", event["start"].get("date")))
+	end = str(event["end"].get("dateTime", event["end"].get("date")))
+	return "\nOn {}/{}/{} @ {}:{} - {}:{}".format(start[0:4], start[5:7], start[8:10], start[11:13], start[14:16], end[11:13], end[14:16])
+
 def addWorkout(msg_id, workout_type, unix_time, list_ids):
 	db = firestore.Client()
 
@@ -115,18 +120,16 @@ def FindEvents(n):
 	# Call the Calendar API
 	now = datetime.utcnow().isoformat() + "Z" # "Z" indicates UTC time
 	events_result = service.events().list(calendarId="primary", timeMin=now,
-										maxResults=n, singleEvents=True,
-										orderBy="startTime").execute()
+		maxResults=n, singleEvents=True, orderBy="startTime").execute()
 
 	events = events_result.get("items", [])
 
 	if not events:
-		statement = "No upcoming events found."
+		statement = "No Upcoming Hours Found"
 	else:
-		statement = "Upcoming events:"
+		statement = "Upcoming Events:"
 		for event in events:
-			start = event["start"].get("dateTime", event["start"].get("date"))
-			statement += "\n" + event["summary"] + " @ " + str(start)
+			statement += DatesFormat(event)
 	return statement
 
 def getKitHours():
@@ -144,13 +147,11 @@ def getKitHours():
 	events = events_result.get("items", [])
 
 	if not events:
-		statement = "No hours uploaded"
+		statement = "No Upcoming Hours Found"
 	else:
 		statement = "Kit's Hours this week:"
 		for event in events:
-			start = str(event["start"].get("dateTime", event["start"].get("date")))
-			end = str(event["end"].get("dateTime", event["end"].get("date")))
-			statement += "\nOn {}/{}/{} @ {}:{} - {}:{}".format(start[0:4], start[5:7], start[8:10], start[11:13], start[14:16], end[11:13], end[14:16])
+			statement += DatesFormat(event)
 	return statement
 
 def setKitHours(message):
@@ -197,9 +198,9 @@ def AddingEvent(request):
 		sendMessage(json.dumps(request_dict))
 	message = request_dict["text"].lower()
 
-	if message.startswith("good bot") or message.startswith("thanks bot "):
-			statement = "Thanks " + request_dict["name"]
-			sendMessage(statement)
+	if message.startswith("good bot") or message.startswith("thanks bot"):
+		statement = "Thanks " + request_dict["name"]
+		sendMessage(statement)
 	
 	# Bot-commands
 	if message.startswith("!bot "):
