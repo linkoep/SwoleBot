@@ -216,7 +216,6 @@ def Resources(message):
 	elif message.startswith("upper"):
 		links = db.collection("resources").document("upper").get()
 
-	sendMessage(links.to_dict())
 	sendMessage(links)
 
 
