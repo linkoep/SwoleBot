@@ -200,26 +200,28 @@ def Resources(message):
 
 	if message.startswith("cardio"):
 		doc = db.collection("resources").document("cardio").get()
+		doc_dict = doc.to_dict()
 
 	elif message.startswith("core"):
 		doc = db.collection("resources").document("core").get()
+		doc_dict = doc.to_dict()
 
 	elif message.startswith("full body"):
 		doc = db.collection("resources").document("full body").get()
+		doc_dict = doc.to_dict()
 
 	elif message.startswith("lower"):
 		doc = db.collection("resources").document("lower").get()
+		doc_dict = doc.to_dict()
 
 	elif message.startswith("skills"):
 		doc = db.collection("resources").document("skills").get()
+		doc_dict = doc.to_dict()
 
 	elif message.startswith("upper"):
 		doc = db.collection("resources").document("upper").get()
+		doc_dict = doc.to_dict()
 
-
-	# doc = db.collection("resources").document("resources").get()
-
-	doc_dict = doc.to_dict()
 
 	statement = "Resources:\n"
 	for key in doc_dict:
@@ -227,33 +229,7 @@ def Resources(message):
 
 	sendMessage(statement)
 
-
 	# sendMessage(json.dumps(temp))
-
-
-
-
-	"""
-	i = 1
-	statement = "Resources:\n"
-	for link in links:
-		link_dict = link.to_dict()
-		sendMessage(link_dict)
-		statement += link_dict["stringValue"]
-		i+=1 
-
-	sendMessage(statement)
-	"""
-
-
-	"""
-	for person in top:
-		person_dict = person.to_dict()
-		statement += "{}.) {} with {} workouts\n".format(i, person_dict.get("name", "unknown"), person_dict["num_workouts"])
-		
-	sendMessage(statement)
-	"""
-
 
 def AddingEvent(request):
 	debug = os.getenv("DEBUG", "false")
@@ -300,9 +276,11 @@ def AddingEvent(request):
 			statement += "!bot events: See upcoming Trudge events\n"
 			statement += "!bot get kit: See Kit's hours for that week\n"
 			statement += "!bot set kit ____: Set a time that kit will be in\n"
+			statement += "!bot resources ____: Gives resources for each workout\n"
 			sendMessage(statement)
 		elif message.startswith('update'):
 			statement = "Patch Notes:\n"
+			statement += "Added Resources\n"
 			statement += "Updated key words\n"
 			statement += "Fixed how time is displayed for events\n"
 			statement += "More Quotes!!!!\n"
