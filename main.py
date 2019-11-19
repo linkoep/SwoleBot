@@ -1,5 +1,5 @@
 from __future__ import print_function
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 import pickle
 import os.path
 
@@ -37,11 +37,13 @@ def sendMessage(message):
 
 def DatesFormat(event):
 	start = event["start"].get("dateTime", event["start"].get("date"))
-	end = str(event["end"].get("dateTime", event["end"].get("date")))
+	end = event["end"].get("dateTime", event["end"].get("date"))
+
+	startDate = date.fromisoformat(start)
 
 	sendMessage(end)
 
-	return "\n    On {} - {}:{}".format(start.strftime("%m/%d @ %H:%M:%S"), end[11:13], end[14:16])
+	return "\n    On {} - {}:{}".format(startDate.strftime("%m/%d @ %H:%M:%S"), end[11:13], end[14:16])
 
 	# return "\n    On {}/{}/{} @ {}:{} - {}:{}".format(start[0:4], start[5:7], start[8:10], start[11:13], start[14:16], end[11:13], end[14:16])
 
