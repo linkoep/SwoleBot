@@ -36,10 +36,14 @@ def sendMessage(message):
 	requests.post("https://api.groupme.com/v3/bots/post", data=data)
 
 def DatesFormat(event):
-	start = str(event["start"].get("dateTime", event["start"].get("date")))
+	start = event["start"].get("dateTime", event["start"].get("date"))
 	end = str(event["end"].get("dateTime", event["end"].get("date")))
 
-	return "\n    On {}/{}/{} @ {}:{} - {}:{}".format(start[0:4], start[5:7], start[8:10], start[11:13], start[14:16], end[11:13], end[14:16])
+	sendMessage(end)
+
+	return "\n    On {} - {}:{}".format(start.strftime("%m/%d @ %H:%M:%S"), end[11:13], end[14:16])
+
+	# return "\n    On {}/{}/{} @ {}:{} - {}:{}".format(start[0:4], start[5:7], start[8:10], start[11:13], start[14:16], end[11:13], end[14:16])
 
 def addWorkout(msg_id, workout_type, unix_time, list_ids):
 	db = firestore.Client()
