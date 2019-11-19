@@ -10,11 +10,11 @@ from apiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 
 core = ["core", "abs", "plank"]
-upper = ["upper", "chest", "back", "shoulder", "tricep", "tri", "bicep", "push up"]
+upper = ["upper", "chest", "shoulder", "tricep", "tri", "bicep", "push up", "strength"]
 lower = ["lower", "leg", "squat"]
-cardio =["cardio", "run", "ran", "swim", "swam", "pool", "canaan", "ultisquash", "bike", "bicycle"]
+cardio =["cardio", "run", "ran", "swim", "swam", "pool", "canaan", "ultisquash", "bike", "bicycle", "mile", "treadmill", "hit"]
 skills = ["skills", "throw", "threw", "canaan", "ultisquash", "ultimate", "frisbee"]
-recovery = ["recovery", "kit", "ice", "rest", "heat", "stretch"]
+recovery = ["recovery", "kit", "ice", "rest", "heat", "stretch", "yoga", ]
 
 quotes = ["\"Core is 90% mental. That's a Curri quote, but I'm gonna keep saying it so all the freshmen think it's a me quote.\" - Calvin Jungreis",
         "\"If you're not gaining, you're losing. And if you're losing, you're not winning\" - Matt Brown",
@@ -38,15 +38,27 @@ def sendMessage(message):
 def addWorkout(msg_id, workout_type, unix_time, list_ids):
 	db = firestore.Client()
 
-	for user in list_ids:
-		user_ref = db.collection("users").document(user)
+	if workout_type == "recovery":
+		sendMessage("recovery")
+		for user in list_ids:
+			user_ref = db.collection("users").document(user)
 
-		user_ref.set({"num_workouts": firestore.Increment(1)}, merge=True)
-		workout_ref = user_ref.collection("workouts").document(msg_id)
-		workout_ref.set({
-			"type" : workout_type,
-			"unix_time" : unix_time,
-		})
+			workout_ref = user_ref.collection("workouts").document(msg_id)
+			workout_ref.set({
+				"type" : workout_type,
+				"unix_time" : unix_time,
+			})
+
+	else:
+		for user in list_ids:
+			user_ref = db.collection("users").document(user)
+
+			user_ref.set({"num_workouts": firestore.Increment(1)}, merge=True)
+			workout_ref = user_ref.collection("workouts").document(msg_id)
+			workout_ref.set({
+				"type" : workout_type,
+				"unix_time" : unix_time,
+			})
 	
 def WorkOutType(message):
 	workouts = []
@@ -160,8 +172,6 @@ def setKitHours(message):
 
 	sendMessage("Hours have been added")
 
-
-
 def MorningMessage():
 	statement = "Rise and Grind Trudge!\n"
 	statement += getKitHours()
@@ -186,6 +196,10 @@ def AddingEvent(request):
 	if debug.lower() == "true":
 		sendMessage(json.dumps(request_dict))
 	message = request_dict["text"].lower()
+
+	if message.startswith("good bot") or message.startswith("thanks bot "):
+			statement = "Thanks " + request_dict["name"]
+			sendMessage(statement)
 	
 	# Bot-commands
 	if message.startswith("!bot "):
@@ -195,11 +209,11 @@ def AddingEvent(request):
 			getLeaderboardTop(5)
 		elif message.startswith("events"):
 			# sendMessage("Finding Events. Please Wait a Second...")
-			sendMessage(FindEvents(10))
+			sendMessage(FindEvents(5))
 		elif message.startswith("kit's hours"):
 			# sendMessage("Finding Kit's Hours. Please Wait a Second...")
 			sendMessage(getKitHours())
-		elif message.startswith("set hours"):
+		elif message.startswith("set kit's hours"):
 			setKitHours(message[4:])
 		elif message.startswith('morning'):
 			# sendMessage("Saying Good Morning. Please Wait a Second...")
@@ -211,6 +225,14 @@ def AddingEvent(request):
 			statement += "!bot events: See upcoming Trudge events\n"
 			statement += "!bot Kit's Hours: See Kit's hours for that week\n"
 			sendMessage(statement)
+		elif message.startswith('update'):
+			statement = "Patch Notes:\n"
+			statement += "Updated key words\n"
+			statement += "Fixed how time is displayed for events\n"
+			statement += "Added this \"good bot\" command\n"
+			statement += "Added this update command\n"
+			sendMessage(statement)
+
 
 	# Non bot-commands
 	else: 
