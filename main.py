@@ -198,7 +198,6 @@ def Resources(message):
 
 	db = firestore.Client()
 
-	"""
 	if message.startswith("cardio"):
 		doc = db.collection("resources").document("cardio").get()
 
@@ -217,12 +216,19 @@ def Resources(message):
 	elif message.startswith("upper"):
 		doc = db.collection("resources").document("upper").get()
 
-	"""
 
-	doc = db.collection("resources").document("resources").get()
+	# doc = db.collection("resources").document("resources").get()
 
-	temp = doc.to_dict()
-	sendMessage(json.dumps(temp))
+	doc_dict = doc.to_dict()
+
+	statement = "Resources:\n"
+	for key in doc_dict:
+		statement += "{}: {}\n".format(key, doc_dict[key])
+
+	sendMessage(statement)
+
+
+	# sendMessage(json.dumps(temp))
 
 
 
