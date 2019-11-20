@@ -3,18 +3,20 @@ from datetime import datetime, timedelta, date
 import pickle
 import os.path
 
-import requests, json, os, random, sys
+import requests, json, os, random, sys, re
 from google.cloud import firestore
 
 from apiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 
-core = ["core", "abs", "plank"]
-upper = ["upper", "chest", "shoulder", "tricep", "tris", "bicep", "push up", "strength", "lift"]
-lower = ["lower", "leg", "squat"]
-cardio =["cardio", "run", "ran", "swim", "swam", "pool", "canaan", "ultisquash", "bike", "bicycle", "mile", "treadmill", "hiit", "track"]
-skills = ["skills", "throw", "threw", "canaan", "ultisquash", "ultimate", "frisbee"]
-recovery = ["recovery", "kit", "ice", "rest", "heat", "stretch", "yoga", "roll"]
+workouttypes = {
+	"core" : ["core", "abs", "plank"],
+	"upper" : ["upper", "chest", "shoulder", "tricep", "tris", "bicep", "push up", "strength", "lift"],
+	"lower" : ["lower", "leg", "squat"],
+	"cardio" : ["cardio", "run", "ran", "swim", "swam", "pool", "canaan", "ultisquash", "bike", "bicycle", "mile", "treadmill", "hiit", "track"],
+	"skills" : ["skills", "throw", "threw", "canaan", "ultisquash", "ultimate", "frisbee"],
+	"recovery" : ["recovery", "kit", "ice", "rest", "heat", "stretch", "yoga", "roll"]
+}
 
 quotes = ["\"Core is 90% mental. That's a Curri quote, but I'm gonna keep saying it so all the freshmen think it's a me quote.\" - Calvin Jungreis",
         "\"If you're not gaining, you're losing. And if you're losing, you're not winning\" - Matt Brown",
@@ -77,37 +79,11 @@ def addWorkout(msg_id, workout_type, unix_time, list_ids):
 	
 def WorkOutType(message):
 	workouts = []
-
-	for word in core:
-		i = message.find(word)
-		if i != -1 and (i == 0 or message[i-1] == " "):
-			workouts.append("core")
-			break
-	for word in upper:
-		i = message.find(word)
-		if i != -1 and (i == 0 or message[i-1] == " "):
-			workouts.append("upper")
-			break
-	for word in lower:
-		i = message.find(word)
-		if i != -1 and (i == 0 or message[i-1] == " "):
-			workouts.append("lower")
-			break
-	for word in cardio:
-		i = message.find(word)
-		if i != -1 and (i == 0 or message[i-1] == " "):
-			workouts.append("cardio")
-			break
-	for word in skills:
-		i = message.find(word)
-		if i != -1 and (i == 0 or message[i-1] == " "):
-			workouts.append("skills")
-			break
-	for word in recovery:
-		i = message.find(word)
-		if i != -1 and (i == 0 or message[i-1] == " "):
-			workouts.append("recovery")
-			break
+	for workouttype, keywords in workouttypes.items():
+		for word in keywords:
+			if re.search("\b"+word+"\b", message):
+				workouts.append(workouttype)
+				break
 	if len(workouts) == 0:
 		workouts.append("unknown")
 
