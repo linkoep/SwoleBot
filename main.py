@@ -10,11 +10,11 @@ from apiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 
 core = ["core", "abs", "plank"]
-upper = ["upper", "chest", "shoulder", "tricep", "tri", "bicep", "push up", "strength", "lift"]
+upper = ["upper", "chest", "shoulder", "tricep", "tris", "bicep", "push up", "strength", "lift"]
 lower = ["lower", "leg", "squat"]
 cardio =["cardio", "run", "ran", "swim", "swam", "pool", "canaan", "ultisquash", "bike", "bicycle", "mile", "treadmill", "hiit", "track"]
 skills = ["skills", "throw", "threw", "canaan", "ultisquash", "ultimate", "frisbee"]
-recovery = ["recovery", "kit", "ice", "rest", "heat", "stretch", "yoga", ]
+recovery = ["recovery", "kit", "ice", "rest", "heat", "stretch", "yoga", "roll"]
 
 quotes = ["\"Core is 90% mental. That's a Curri quote, but I'm gonna keep saying it so all the freshmen think it's a me quote.\" - Calvin Jungreis",
         "\"If you're not gaining, you're losing. And if you're losing, you're not winning\" - Matt Brown",
@@ -54,7 +54,7 @@ def addWorkout(msg_id, workout_type, unix_time, list_ids):
 	db = firestore.Client()
 
 	if workout_type == "recovery":
-		sendMessage("recovery")
+		# sendMessage("recovery")
 		for user in list_ids:
 			user_ref = db.collection("users").document(user)
 
@@ -79,27 +79,33 @@ def WorkOutType(message):
 	workouts = []
 
 	for word in core:
-		if message.find(word) != -1:
+		i = message.find(word)
+		if i != -1 and (i == 0 or message[i-1] == " "):
 			workouts.append("core")
 			break
 	for word in upper:
-		if message.find(word) != -1:
+		i = message.find(word)
+		if i != -1 and (i == 0 or message[i-1] == " "):
 			workouts.append("upper")
 			break
 	for word in lower:
-		if message.find(word) != -1:
+		i = message.find(word)
+		if i != -1 and (i == 0 or message[i-1] == " "):
 			workouts.append("lower")
 			break
 	for word in cardio:
-		if message.find(word) != -1:
+		i = message.find(word)
+		if i != -1 and (i == 0 or message[i-1] == " "):
 			workouts.append("cardio")
 			break
 	for word in skills:
-		if message.find(word) != -1:
+		i = message.find(word)
+		if i != -1 and (i == 0 or message[i-1] == " "):
 			workouts.append("skills")
 			break
 	for word in recovery:
-		if message.find(word) != -1:
+		i = message.find(word)
+		if i != -1 and (i == 0 or message[i-1] == " "):
 			workouts.append("recovery")
 			break
 	if len(workouts) == 0:
@@ -279,12 +285,16 @@ def AddingEvent(request):
 			statement += "!bot resources ____: Gives resources for each workout\n"
 			sendMessage(statement)
 		elif message.startswith('update'):
-			statement = "Patch Notes:\n"
-			statement += "Added Resources\n"
-			statement += "Updated key words\n"
-			statement += "Fixed how time is displayed for events\n"
-			statement += "More Quotes!!!!\n"
-			statement += "Added this update command\n"
+			statement = "Patch Notes: (11/19)\n"
+			statement += "   Added Resources\n"
+			statement += "   Updated key words\n"
+			statement += "   Fixed how time is displayed for events\n"
+			statement += "   More Quotes!!!!\n"
+			statement += "   Added this update command\n"
+			statement += "Hot Fix: (11/20)\n"
+			statement += "   Removed extra recovery message\n"
+			statement += "   Updated key words\n"
+			statement += "   Require space before key words\n"
 			sendMessage(statement)
 
 
