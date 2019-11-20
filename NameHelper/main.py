@@ -26,4 +26,4 @@ def populateNames(request):
 	for user in users:
 		user_ref = db.collection("users").document(user[0])
 		user_ref.set({"name": user[1]}, merge=True)
-	return "First message was " + response["response"]["messages"][0]["id"]
+	return "Recent message was " + response["response"]["messages"][0]["id"] + " and oldest message was " + response["response"]["messages"][49]["id"] 
