@@ -81,8 +81,17 @@ def WorkOutType(message):
 	workouts = []
 	for workouttype, keywords in workouttypes.items():
 		for word in keywords:
-			if re.search("\b"+word+"\b", message):
+			print("trying {}".format(word))
+			if re.search(
+					r"\b"						#word boundary
+					+word[:-1]					#all but last character
+					+r"(" + word[-1]+r"){0,2}"	#last character 0 (icing), 1 (core), or 2 (swimming) times
+					+r"(s|d|es|ed|ing)*"			#0 or more of the suffixes
+					+r"\b",						#word boundary
+					message):
 				workouts.append(workouttype)
+				if os.getenv("DEBUG", "false").lower == "true":
+					print("matched {}".format(word))
 				break
 	if len(workouts) == 0:
 		workouts.append("unknown")
