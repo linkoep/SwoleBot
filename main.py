@@ -176,7 +176,7 @@ def setKitHours(message):
 	sendMessage("Hours have been added")
 
 def MorningMessage():
-	statement = "Rise and Grind Trudge!\n"
+	statement = "Rise and Grind Workout Friends!\n"
 	statement += getKitHours()
 	statement += "\n"
 	statement += FindEvents(3)
