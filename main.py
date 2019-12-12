@@ -81,7 +81,6 @@ def WorkOutType(message):
 	workouts = []
 	for workouttype, keywords in workouttypes.items():
 		for word in keywords:
-			print("trying {}".format(word))
 			if re.search(
 					r"\b"						#word boundary
 					+word[:-1]					#all but last character
@@ -90,7 +89,7 @@ def WorkOutType(message):
 					+r"\b",						#word boundary
 					message):
 				workouts.append(workouttype)
-				if os.getenv("DEBUG", "false").lower == "true":
+				if os.getenv("DEBUG", "false").lower() == "true":
 					print("matched {}".format(word))
 				break
 	if len(workouts) == 0:
@@ -296,3 +295,4 @@ def AddingEvent(request):
 				addWorkout(request_dict["id"], temp, request_dict["created_at"], names)
 				if debug.lower() == "true":
 					sendMessage("Logged a {} workout from {}!".format(temp, request_dict["name"]))
+
