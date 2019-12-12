@@ -294,4 +294,5 @@ def AddingEvent(request):
 	
 			for temp in typeOfWorkout:
 				addWorkout(request_dict["id"], temp, request_dict["created_at"], names)
-				sendMessage("Logged a {} workout from {}!".format(temp, request_dict["name"]))
+				if debug.lower() == "true":
+					sendMessage("Logged a {} workout from {}!".format(temp, request_dict["name"]))
