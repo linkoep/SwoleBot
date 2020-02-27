@@ -269,12 +269,9 @@ def AddingEvent(request):
 			statement += "!bot resources ____: Gives resources for each workout\n"
 			sendMessage(statement)
 		elif message.startswith('update'):
-			statement = "Hot Fix: (11/20)\n"
-			statement += "   Removed extra recovery message\n"
-			statement += "   Updated key words\n"
-			statement += "   Require space before key words\n"
-			statement += "Patch Notes: (11/20)\n"
-			statement += "   More refined keyword matching\n"
+                        statement = "Patch Notes: (2/27)\n"
+			statement += "   Rose from the dead\n"
+			statement += "   Removed individual logs\n"
 			sendMessage(statement)
 
 
