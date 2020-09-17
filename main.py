@@ -54,9 +54,8 @@ def DatesFormat(event):
 
 def addWorkout(msg_id, workout_type, unix_time, list_ids):
     db = firestore.Client()
-
+    sendMessage("Duck, you butt buy us light")
     if workout_type == "recovery":
-        # sendMessage("recovery")
         for user in list_ids:
             user_ref = db.collection("users").document(user)
 
